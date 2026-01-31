@@ -1,0 +1,69 @@
+<footer class="footer">
+  <div class="footer__container container">
+    <div class="footer__grid">
+      <!-- Brand Section -->
+      <div class="footer__brand">
+        <div class="footer__logo">
+          <span class="text-gradient">Mailer</span> Campaigner
+        </div>
+        <p class="footer__description">
+          Professionelles E-Mail-Kampagnen-Tool für personalisierte Kaltakquise. 
+          Volle Datenkontrolle auf deinem lokalen System.
+        </p>
+        <div class="footer__social">
+          @for (social of socialLinks; track social.url) {
+            <a 
+              [href]="social.url" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              class="footer__social-link"
+              [attr.aria-label]="social.label"
+            >
+              <i class="fa-brands {{ social.icon }}" aria-hidden="true"></i>
+            </a>
+          }
+        </div>
+      </div>
+
+      <!-- Product Links -->
+      <div class="footer__section">
+        <h4 class="footer__section-title">Produkt</h4>
+        <nav class="footer__nav" aria-label="Produkt-Links">
+          @for (link of footerLinks.product; track link.path) {
+            <a [routerLink]="link.path" class="footer__link">{{ link.label }}</a>
+          }
+        </nav>
+      </div>
+
+      <!-- Resources Links -->
+      <div class="footer__section">
+        <h4 class="footer__section-title">Ressourcen</h4>
+        <nav class="footer__nav" aria-label="Ressourcen-Links">
+          @for (link of footerLinks.resources; track link.path) {
+            <a [routerLink]="link.path" class="footer__link">{{ link.label }}</a>
+          }
+        </nav>
+      </div>
+
+      <!-- Legal Links -->
+      <div class="footer__section">
+        <h4 class="footer__section-title">Rechtliches</h4>
+        <nav class="footer__nav" aria-label="Rechtliche Links">
+          @for (link of footerLinks.legal; track link.path) {
+            <a [routerLink]="link.path" class="footer__link">{{ link.label }}</a>
+          }
+        </nav>
+      </div>
+    </div>
+
+    <div class="footer__bottom">
+      <p class="footer__copyright">
+        © {{ currentYear }} <strong>Obscuras Media Agency</strong>. Alle Rechte vorbehalten.
+      </p>
+      <p class="footer__tagline">
+        Digitale Softwarelösungen aus Deutschland
+        <i class="fa-solid fa-heart" aria-hidden="true"></i>
+      </p>
+    </div>
+  </div>
+</footer>

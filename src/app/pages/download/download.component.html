@@ -1,0 +1,212 @@
+<!-- Hero Section -->
+<section class="download-hero">
+  <div class="container">
+    <div class="download-hero__content">
+      <h1 class="download-hero__title">
+        <span class="text-gradient">Download</span> & Installation
+      </h1>
+      <p class="download-hero__description">
+        Lade Mailer Campaigner herunter und starte in wenigen Minuten 
+        mit deinen E-Mail-Kampagnen.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- Platform Selector -->
+<section class="platforms section">
+  <div class="container">
+    <div class="platforms__tabs" role="tablist" aria-label="Betriebssystem auswählen">
+      <button
+        type="button"
+        role="tab"
+        class="platforms__tab"
+        [class.platforms__tab--active]="selectedPlatform() === 'linux'"
+        [attr.aria-selected]="selectedPlatform() === 'linux'"
+        (click)="selectPlatform('linux')"
+      >
+        <i class="fa-brands fa-linux" aria-hidden="true"></i>
+        Linux
+        <span class="platforms__badge platforms__badge--available">Verfügbar</span>
+      </button>
+      <button
+        type="button"
+        role="tab"
+        class="platforms__tab"
+        [class.platforms__tab--active]="selectedPlatform() === 'windows'"
+        [attr.aria-selected]="selectedPlatform() === 'windows'"
+        (click)="selectPlatform('windows')"
+      >
+        <i class="fa-brands fa-windows" aria-hidden="true"></i>
+        Windows
+        <span class="platforms__badge">Bald</span>
+      </button>
+      <button
+        type="button"
+        role="tab"
+        class="platforms__tab"
+        [class.platforms__tab--active]="selectedPlatform() === 'macos'"
+        [attr.aria-selected]="selectedPlatform() === 'macos'"
+        (click)="selectPlatform('macos')"
+      >
+        <i class="fa-brands fa-apple" aria-hidden="true"></i>
+        macOS
+        <span class="platforms__badge">Bald</span>
+      </button>
+    </div>
+
+    <!-- Download Card -->
+    <div class="download-card card" role="tabpanel">
+      <div class="download-card__header">
+        <div class="download-card__icon">
+          <i [class]="currentPlatform.icon" aria-hidden="true"></i>
+        </div>
+        <div class="download-card__info">
+          <h2 class="download-card__title">
+            Mailer Campaigner für {{ currentPlatform.platform }}
+          </h2>
+          <span class="download-card__version">
+            Version {{ currentPlatform.version }}
+          </span>
+        </div>
+        @if (currentPlatform.available && currentPlatform.downloadUrl) {
+          <a 
+            [href]="currentPlatform.downloadUrl" 
+            class="btn btn-primary btn-lg download-card__btn"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <i class="fa-solid fa-download" aria-hidden="true"></i>
+            Download
+          </a>
+        } @else {
+          <button type="button" class="btn btn-secondary btn-lg download-card__btn" disabled>
+            <i class="fa-solid fa-clock" aria-hidden="true"></i>
+            Coming Soon
+          </button>
+        }
+      </div>
+
+      @if (!currentPlatform.available) {
+        <div class="download-card__notice">
+          <i class="fa-solid fa-info-circle" aria-hidden="true"></i>
+          <p>
+            Die {{ currentPlatform.platform }}-Version befindet sich noch in der Entwicklung. 
+            Trage dich in unseren Newsletter ein, um benachrichtigt zu werden.
+          </p>
+        </div>
+      }
+
+      <!-- Requirements -->
+      <div class="download-card__section">
+        <h3 class="download-card__section-title">
+          <i class="fa-solid fa-list-check" aria-hidden="true"></i>
+          Systemvoraussetzungen
+        </h3>
+        <ul class="download-card__requirements">
+          @for (req of currentPlatform.requirements; track req) {
+            <li>
+              <i class="fa-solid fa-check" aria-hidden="true"></i>
+              {{ req }}
+            </li>
+          }
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Installation Guide -->
+<section class="installation section">
+  <div class="container">
+    <div class="installation__header">
+      <h2 class="installation__title">
+        <i class="fa-solid fa-terminal" aria-hidden="true"></i>
+        Installationsanleitung für {{ currentPlatform.platform }}
+      </h2>
+      <p class="installation__description">
+        Folge diesen Schritten, um Mailer Campaigner auf deinem System zu installieren.
+      </p>
+    </div>
+
+    <div class="installation__steps">
+      @for (step of currentPlatform.installSteps; track step.command; let i = $index) {
+        <div class="installation__step">
+          <div class="installation__step-number">{{ i + 1 }}</div>
+          <div class="installation__step-content">
+            <p class="installation__step-description">{{ step.description }}</p>
+            <div class="installation__step-command">
+              <code>{{ step.command }}</code>
+              <button 
+                type="button" 
+                class="installation__step-copy"
+                aria-label="Befehl kopieren"
+                (click)="copyToClipboard(step.command)"
+              >
+                <i class="fa-solid fa-copy" aria-hidden="true"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+      }
+    </div>
+  </div>
+</section>
+
+<!-- CLI Quickstart -->
+<section class="quickstart section">
+  <div class="container">
+    <div class="quickstart__header">
+      <span class="quickstart__badge">CLI Quickstart</span>
+      <h2 class="quickstart__title">Erste Schritte mit der Kommandozeile</h2>
+      <p class="quickstart__description">
+        Für Entwickler, die lieber mit der Kommandozeile arbeiten.
+      </p>
+    </div>
+
+    <div class="quickstart__grid">
+      @for (item of cliQuickstart; track item.command) {
+        <div class="quickstart__card card">
+          <h3 class="quickstart__card-title">{{ item.title }}</h3>
+          <p class="quickstart__card-description">{{ item.description }}</p>
+          <div class="quickstart__card-command">
+            <code>{{ item.command }}</code>
+            <button 
+              type="button" 
+              class="quickstart__card-copy"
+              aria-label="Befehl kopieren"
+              (click)="copyToClipboard(item.command)"
+            >
+              <i class="fa-solid fa-copy" aria-hidden="true"></i>
+            </button>
+          </div>
+        </div>
+      }
+    </div>
+  </div>
+</section>
+
+<!-- Help Section -->
+<section class="help section">
+  <div class="container">
+    <div class="help__card card">
+      <div class="help__icon">
+        <i class="fa-solid fa-life-ring" aria-hidden="true"></i>
+      </div>
+      <h2 class="help__title">Brauchst du Hilfe?</h2>
+      <p class="help__description">
+        Schau dir unsere ausführliche Dokumentation an oder kontaktiere unseren Support.
+      </p>
+      <div class="help__actions">
+        <a routerLink="/docs" class="btn btn-primary">
+          <i class="fa-solid fa-book" aria-hidden="true"></i>
+          Dokumentation
+        </a>
+        <a href="mailto:support@obscuras-media-agency.de" class="btn btn-secondary">
+          <i class="fa-solid fa-envelope" aria-hidden="true"></i>
+          Support kontaktieren
+        </a>
+      </div>
+    </div>
+  </div>
+</section>

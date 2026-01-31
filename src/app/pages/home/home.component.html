@@ -1,0 +1,211 @@
+<!-- Hero Section -->
+<section class="hero">
+  <div class="hero__bg-glow" aria-hidden="true"></div>
+  <div class="hero__container container">
+    <div class="hero__content">
+      <div class="hero__badge">
+        <i class="fa-solid fa-rocket" aria-hidden="true"></i>
+        Lokales Kaltakquise-Tool
+      </div>
+      <h1 class="hero__title">
+        E-Mail Kampagnen
+        <span class="text-gradient">ohne Kompromisse</span>
+      </h1>
+      <p class="hero__description">
+        Professionelles Kampagnen-Management für personalisierte Akquise-Mails. 
+        Volle Datenkontrolle auf deinem lokalen System – keine Cloud, keine monatlichen Gebühren.
+      </p>
+      <div class="hero__actions">
+        <a routerLink="/download" class="btn btn-primary btn-lg">
+          <i class="fa-solid fa-download" aria-hidden="true"></i>
+          Kostenlos testen
+        </a>
+        <a routerLink="/docs" class="btn btn-secondary btn-lg">
+          <i class="fa-solid fa-book" aria-hidden="true"></i>
+          Dokumentation
+        </a>
+      </div>
+      <div class="hero__meta">
+        <span class="hero__meta-item">
+          <i class="fa-brands fa-linux" aria-hidden="true"></i>
+          Linux
+        </span>
+        <span class="hero__meta-item">
+          <i class="fa-brands fa-windows" aria-hidden="true"></i>
+          Windows (bald)
+        </span>
+        <span class="hero__meta-item">
+          <i class="fa-brands fa-apple" aria-hidden="true"></i>
+          macOS (bald)
+        </span>
+      </div>
+    </div>
+    <div class="hero__visual">
+      <div class="hero__terminal">
+        <div class="hero__terminal-header">
+          <span class="hero__terminal-dot hero__terminal-dot--red"></span>
+          <span class="hero__terminal-dot hero__terminal-dot--yellow"></span>
+          <span class="hero__terminal-dot hero__terminal-dot--green"></span>
+          <span class="hero__terminal-title">send_campaign.py</span>
+        </div>
+        <div class="hero__terminal-body">
+          <code>
+            <span class="code-prompt">$</span> python send_campaign.py kanzleien_mobile --preview<br>
+            <span class="code-success">✓</span> Vorschau erstellt: campaigns/kanzleien_mobile/preview.html<br><br>
+            <span class="code-prompt">$</span> python send_campaign.py kanzleien_mobile --schedule<br>
+            <span class="code-info">ℹ</span> Zeitfenster: Mo-Fr, 09:00-17:00<br>
+            <span class="code-info">ℹ</span> Rate-Limit: 45 Mails/Stunde<br>
+            <span class="code-success">✓</span> Kampagne gestartet: 127 Kontakte<br>
+            <span class="code-muted">━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</span><br>
+            <span class="code-success">✓</span> Versendet: kontakt&#64;kanzlei-mueller.de<br>
+            <span class="code-success">✓</span> Versendet: info&#64;rechtsanwalt-schmidt.de<br>
+            <span class="code-muted">...</span>
+          </code>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Stats Section -->
+<section class="stats section">
+  <div class="container">
+    <div class="stats__grid">
+      @for (stat of stats; track stat.label) {
+        <div class="stats__item">
+          <span class="stats__value text-gradient">{{ stat.value }}</span>
+          <span class="stats__label">{{ stat.label }}</span>
+        </div>
+      }
+    </div>
+  </div>
+</section>
+
+<!-- Features Section -->
+<section class="features section" id="features">
+  <div class="container">
+    <div class="features__header">
+      <span class="features__badge">Features</span>
+      <h2 class="features__title">
+        Alles, was du für erfolgreiche
+        <span class="text-gradient">Kaltakquise</span> brauchst
+      </h2>
+      <p class="features__description">
+        Entwickelt von Entwicklern für Entwickler und Marketing-Profis. 
+        Kein Overhead, keine versteckten Kosten.
+      </p>
+    </div>
+    <div class="features__grid">
+      @for (feature of features; track feature.title) {
+        <article class="features__card card">
+          <div class="features__card-icon">
+            <i class="fa-solid {{ feature.icon }}" aria-hidden="true"></i>
+          </div>
+          <h3 class="features__card-title">{{ feature.title }}</h3>
+          <p class="features__card-description">{{ feature.description }}</p>
+        </article>
+      }
+    </div>
+  </div>
+</section>
+
+<!-- Pricing Teaser Section -->
+<section class="pricing-teaser section">
+  <div class="container">
+    <div class="pricing-teaser__card">
+      <div class="pricing-teaser__content">
+        <span class="pricing-teaser__badge">Einmaliger Preis</span>
+        <h2 class="pricing-teaser__title">
+          <span class="pricing-teaser__price">129 €</span>
+          <span class="pricing-teaser__period">/ Jahr</span>
+        </h2>
+        <p class="pricing-teaser__description">
+          Unbegrenzte Kampagnen, unbegrenzte Kontakte, keine versteckten Kosten.
+          Alle Features inklusive.
+        </p>
+        <ul class="pricing-teaser__features">
+          <li>
+            <i class="fa-solid fa-check" aria-hidden="true"></i>
+            Unbegrenzte Kampagnen
+          </li>
+          <li>
+            <i class="fa-solid fa-check" aria-hidden="true"></i>
+            Unbegrenzte Kontakte
+          </li>
+          <li>
+            <i class="fa-solid fa-check" aria-hidden="true"></i>
+            Alle Updates inklusive
+          </li>
+          <li>
+            <i class="fa-solid fa-check" aria-hidden="true"></i>
+            E-Mail Support
+          </li>
+        </ul>
+        <a routerLink="/pricing" class="btn btn-primary btn-lg">
+          Mehr erfahren
+          <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
+        </a>
+      </div>
+      <div class="pricing-teaser__visual" aria-hidden="true">
+        <div class="pricing-teaser__glow"></div>
+        <i class="fa-solid fa-envelope-circle-check"></i>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Testimonials Section -->
+<section class="testimonials section">
+  <div class="container">
+    <div class="testimonials__header">
+      <span class="testimonials__badge">Kundenstimmen</span>
+      <h2 class="testimonials__title">Was unsere Nutzer sagen</h2>
+    </div>
+    <div class="testimonials__grid">
+      @for (testimonial of testimonials; track testimonial.author) {
+        <article class="testimonials__card card">
+          <div class="testimonials__quote">
+            <i class="fa-solid fa-quote-left" aria-hidden="true"></i>
+          </div>
+          <blockquote class="testimonials__text">
+            {{ testimonial.quote }}
+          </blockquote>
+          <footer class="testimonials__author">
+            <div class="testimonials__avatar">
+              <i class="fa-solid fa-user" aria-hidden="true"></i>
+            </div>
+            <div>
+              <cite class="testimonials__name">{{ testimonial.author }}</cite>
+              <span class="testimonials__role">{{ testimonial.role }}</span>
+            </div>
+          </footer>
+        </article>
+      }
+    </div>
+  </div>
+</section>
+
+<!-- CTA Section -->
+<section class="cta section">
+  <div class="container">
+    <div class="cta__card">
+      <h2 class="cta__title">
+        Bereit für effektive
+        <span class="text-gradient">Kaltakquise</span>?
+      </h2>
+      <p class="cta__description">
+        Starte jetzt mit Mailer Campaigner und erlebe professionelles 
+        E-Mail-Marketing ohne monatliche Kosten.
+      </p>
+      <div class="cta__actions">
+        <a routerLink="/download" class="btn btn-primary btn-lg">
+          <i class="fa-solid fa-download" aria-hidden="true"></i>
+          Jetzt herunterladen
+        </a>
+        <a routerLink="/docs" class="btn btn-secondary btn-lg">
+          Dokumentation lesen
+        </a>
+      </div>
+    </div>
+  </div>
+</section>

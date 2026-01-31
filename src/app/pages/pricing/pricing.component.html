@@ -1,0 +1,159 @@
+<!-- Hero Section -->
+<section class="pricing-hero">
+  <div class="container">
+    <span class="pricing-hero__badge">Einfache Preisgestaltung</span>
+    <h1 class="pricing-hero__title">
+      Ein Preis.
+      <span class="text-gradient">Alle Features.</span>
+    </h1>
+    <p class="pricing-hero__description">
+      Keine versteckten Kosten, keine Pro-E-Mail-Gebühren, keine Kontaktlimits.
+      Bezahle einmal pro Jahr und nutze alles.
+    </p>
+  </div>
+</section>
+
+<!-- Main Pricing Card -->
+<section class="pricing-main section">
+  <div class="container">
+    <div class="pricing-card">
+      <div class="pricing-card__header">
+        <span class="pricing-card__label">Jahreslizenz</span>
+        <div class="pricing-card__price">
+          <span class="pricing-card__amount text-gradient">{{ price.amount }}</span>
+          <div class="pricing-card__period">
+            <span class="pricing-card__currency">{{ price.currency }}</span>
+            <span class="pricing-card__time">/ {{ price.period }}</span>
+          </div>
+        </div>
+        <span class="pricing-card__vat">{{ price.vat }}</span>
+        <p class="pricing-card__subtext">
+          Das sind nur <strong>10,75 €</strong> pro Monat!
+        </p>
+      </div>
+
+      <div class="pricing-card__features">
+        <h3 class="pricing-card__features-title">Alle Features inklusive:</h3>
+        <ul class="pricing-card__features-list">
+          @for (feature of features; track feature.text) {
+            <li>
+              @if (feature.included) {
+                <i class="fa-solid fa-check" aria-hidden="true"></i>
+              } @else {
+                <i class="fa-solid fa-xmark" aria-hidden="true"></i>
+              }
+              {{ feature.text }}
+            </li>
+          }
+        </ul>
+      </div>
+
+      <div class="pricing-card__actions">
+        <a routerLink="/download" class="btn btn-primary btn-lg">
+          <i class="fa-solid fa-download" aria-hidden="true"></i>
+          14 Tage kostenlos testen
+        </a>
+        <p class="pricing-card__note">
+          Keine Kreditkarte erforderlich • Jederzeit kündbar
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Comparison Section -->
+<section class="comparison section">
+  <div class="container">
+    <div class="comparison__header">
+      <span class="comparison__badge">Vergleich</span>
+      <h2 class="comparison__title">Warum Mailer Campaigner?</h2>
+      <p class="comparison__description">
+        Im Vergleich zu Cloud-basierten E-Mail-Marketing-Tools sparst du nicht nur Geld,
+        sondern behältst auch die volle Kontrolle über deine Daten.
+      </p>
+    </div>
+
+    <div class="comparison__table-wrapper">
+      <table class="comparison__table">
+        <thead>
+          <tr>
+            <th>Feature</th>
+            <th class="comparison__competitor">Typische Cloud-Tools</th>
+            <th class="comparison__us">Mailer Campaigner</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (item of comparisonItems; track item.feature) {
+            <tr>
+              <td>{{ item.feature }}</td>
+              <td class="comparison__competitor">{{ item.competitor }}</td>
+              <td class="comparison__us">
+                <i class="fa-solid fa-check" aria-hidden="true"></i>
+                {{ item.us }}
+              </td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- Money Back Guarantee -->
+<section class="guarantee section">
+  <div class="container">
+    <div class="guarantee__card">
+      <div class="guarantee__icon">
+        <i class="fa-solid fa-shield-check" aria-hidden="true"></i>
+      </div>
+      <h2 class="guarantee__title">30 Tage Geld-zurück-Garantie</h2>
+      <p class="guarantee__description">
+        Nicht zufrieden? Kein Problem. Innerhalb von 30 Tagen nach dem Kauf 
+        erstatten wir dir den vollen Kaufpreis – ohne Wenn und Aber.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ Section -->
+<section class="faq section">
+  <div class="container">
+    <div class="faq__header">
+      <span class="faq__badge">FAQ</span>
+      <h2 class="faq__title">Häufig gestellte Fragen</h2>
+    </div>
+
+    <div class="faq__grid">
+      @for (item of faqs; track item.question) {
+        <article class="faq__item card">
+          <h3 class="faq__question">
+            <i class="fa-solid fa-circle-question" aria-hidden="true"></i>
+            {{ item.question }}
+          </h3>
+          <p class="faq__answer">{{ item.answer }}</p>
+        </article>
+      }
+    </div>
+  </div>
+</section>
+
+<!-- CTA Section -->
+<section class="pricing-cta section">
+  <div class="container">
+    <div class="pricing-cta__card">
+      <h2 class="pricing-cta__title">Bereit für professionelle Kaltakquise?</h2>
+      <p class="pricing-cta__description">
+        Starte jetzt mit deiner 14-tägigen kostenlosen Testphase.
+      </p>
+      <div class="pricing-cta__actions">
+        <a routerLink="/download" class="btn btn-primary btn-lg">
+          <i class="fa-solid fa-download" aria-hidden="true"></i>
+          Jetzt starten
+        </a>
+        <a routerLink="/docs" class="btn btn-secondary btn-lg">
+          Dokumentation lesen
+        </a>
+      </div>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,313 @@
+<!-- Hero Section -->
+<section class="docs-hero">
+  <div class="container">
+    <h1 class="docs-hero__title">
+      <i class="fa-solid fa-book" aria-hidden="true"></i>
+      Dokumentation
+    </h1>
+    <p class="docs-hero__description">
+      Alles, was du über Mailer Campaigner wissen musst – von der Installation 
+      bis zu fortgeschrittenen Kampagnen-Strategien.
+    </p>
+  </div>
+</section>
+
+<!-- Quick Guides -->
+<section class="quick-guides section">
+  <div class="container">
+    <h2 class="quick-guides__title">Schnellstart-Anleitungen</h2>
+    <div class="quick-guides__grid">
+      @for (guide of quickGuides; track guide.link) {
+        <a [routerLink]="guide.link" class="quick-guides__card card">
+          <div class="quick-guides__icon">
+            <i class="fa-solid {{ guide.icon }}" aria-hidden="true"></i>
+          </div>
+          <h3 class="quick-guides__card-title">{{ guide.title }}</h3>
+          <p class="quick-guides__card-description">{{ guide.description }}</p>
+          <span class="quick-guides__link">
+            Mehr erfahren
+            <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
+          </span>
+        </a>
+      }
+    </div>
+  </div>
+</section>
+
+<!-- Main Documentation -->
+<section class="docs-main section">
+  <div class="container">
+    <div class="docs-layout">
+      <!-- Sidebar -->
+      <aside class="docs-sidebar">
+        <nav aria-label="Dokumentations-Navigation">
+          @for (section of sections; track section.id) {
+            <button
+              type="button"
+              class="docs-sidebar__item"
+              [class.docs-sidebar__item--active]="activeSection() === section.id"
+              (click)="setActiveSection(section.id)"
+            >
+              <i class="fa-solid {{ section.icon }}" aria-hidden="true"></i>
+              {{ section.title }}
+            </button>
+          }
+        </nav>
+      </aside>
+
+      <!-- Content -->
+      <div class="docs-content">
+        @switch (activeSection()) {
+          @case ('quickstart') {
+            <article class="docs-article">
+              <h2 class="docs-article__title">
+                <i class="fa-solid fa-rocket" aria-hidden="true"></i>
+                Schnellstart
+              </h2>
+              <p class="docs-article__intro">
+                Mit diesen einfachen Schritten startest du in wenigen Minuten deine erste Kampagne.
+              </p>
+
+              <h3>1. Installation</h3>
+              <div class="docs-code">
+                <pre><code># Virtuelle Umgebung erstellen
+python -m venv venv
+source venv/bin/activate
+
+# Abhängigkeiten installieren
+pip install -r requirements.txt
+
+# Konfiguration
+cp .env.example .env
+nano .env  # SMTP-Daten eintragen</code></pre>
+              </div>
+
+              <h3>2. SMTP-Konfiguration</h3>
+              <p>Trage deine SMTP-Zugangsdaten in die <code>.env</code>-Datei ein:</p>
+              <div class="docs-code">
+                <pre><code>export SMTP_HOST="smtp.deinserver.de"
+export SMTP_PORT="465"
+export SMTP_USER="mail&#64;deine-domain.de"
+export SMTP_PASS="dein-sicheres-passwort"</code></pre>
+              </div>
+
+              <h3>3. Erste Kampagne</h3>
+              <p>Teste deine Konfiguration mit einem Probelauf:</p>
+              <div class="docs-code">
+                <pre><code># Kampagnen anzeigen
+python send_campaign.py --list
+
+# Vorschau erstellen
+python send_campaign.py meine_kampagne --preview
+
+# Test-Mail senden
+python send_campaign.py meine_kampagne --test deine&#64;email.de</code></pre>
+              </div>
+            </article>
+          }
+
+          @case ('campaigns') {
+            <article class="docs-article">
+              <h2 class="docs-article__title">
+                <i class="fa-solid fa-bullseye" aria-hidden="true"></i>
+                Kampagnen erstellen
+              </h2>
+              <p class="docs-article__intro">
+                Jede Kampagne besteht aus einer YAML-Konfigurationsdatei und einer Kontaktliste.
+              </p>
+
+              <h3>Kampagnen-Struktur</h3>
+              <div class="docs-code">
+                <pre><code>campaigns/
+├── meine_kampagne/
+│   ├── campaign.yaml    # Konfiguration & Inhalt
+│   ├── contacts.csv     # Kontaktliste
+│   └── preview.html     # Generierte Vorschau</code></pre>
+              </div>
+
+              <h3>campaign.yaml Beispiel</h3>
+              <div class="docs-code">
+                <pre><code>name: "Meine Kampagne"
+subject: "Betreffzeile der E-Mail"
+contacts: "contacts.csv"
+
+content:
+  greeting: "Sehr geehrte Damen und Herren,"
+  intro: |
+    Einleitungstext mit Link zur 
+    Website.
+  body:
+    - "Erster Absatz des Haupttexts."
+    - "Zweiter Absatz mit Details."
+  cta:
+    text: "Jetzt kontaktieren →"
+    url: "https://example.com/kontakt"</code></pre>
+              </div>
+
+              <h3>contacts.csv Format</h3>
+              <div class="docs-code">
+                <pre><code>FIRMA,DOMAIN,EMAIL,PROBLEM
+Musterfirma GmbH,https://musterfirma.de,kontakt&#64;musterfirma.de,"Problem-Beschreibung"</code></pre>
+              </div>
+            </article>
+          }
+
+          @case ('templates') {
+            <article class="docs-article">
+              <h2 class="docs-article__title">
+                <i class="fa-solid fa-code" aria-hidden="true"></i>
+                Templates & Platzhalter
+              </h2>
+              <p class="docs-article__intro">
+                Personalisiere deine E-Mails mit dynamischen Platzhaltern.
+              </p>
+
+              <h3>Verfügbare Platzhalter</h3>
+              <div class="docs-table-wrapper">
+                <table class="docs-table">
+                  <thead>
+                    <tr>
+                      <th>Platzhalter</th>
+                      <th>Beschreibung</th>
+                      <th>Beispiel</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    @for (p of placeholders; track p.name) {
+                      <tr>
+                        <td><code>{{ p.name }}</code></td>
+                        <td>{{ p.description }}</td>
+                        <td>{{ p.example }}</td>
+                      </tr>
+                    }
+                  </tbody>
+                </table>
+              </div>
+
+              <h3>Eigene Platzhalter</h3>
+              <p>
+                Du kannst beliebige eigene Platzhalter definieren, indem du Spalten 
+                in deiner <code>contacts.csv</code> hinzufügst. Der Spaltenname wird 
+                automatisch zum Platzhalter.
+              </p>
+            </article>
+          }
+
+          @case ('cli') {
+            <article class="docs-article">
+              <h2 class="docs-article__title">
+                <i class="fa-solid fa-terminal" aria-hidden="true"></i>
+                CLI-Befehle
+              </h2>
+              <p class="docs-article__intro">
+                Alle verfügbaren Kommandozeilen-Befehle für die Kampagnenverwaltung.
+              </p>
+
+              <div class="docs-commands">
+                @for (cmd of cliCommands; track cmd.command) {
+                  <div class="docs-command">
+                    <div class="docs-command__header">
+                      <code class="docs-command__code">{{ cmd.command }}</code>
+                      <button 
+                        type="button"
+                        class="docs-command__copy"
+                        aria-label="Befehl kopieren"
+                        (click)="copyToClipboard(cmd.command)"
+                      >
+                        <i class="fa-solid fa-copy" aria-hidden="true"></i>
+                      </button>
+                    </div>
+                    <p class="docs-command__description">{{ cmd.description }}</p>
+                  </div>
+                }
+              </div>
+            </article>
+          }
+
+          @case ('gui') {
+            <article class="docs-article">
+              <h2 class="docs-article__title">
+                <i class="fa-solid fa-desktop" aria-hidden="true"></i>
+                GUI-Oberfläche
+              </h2>
+              <p class="docs-article__intro">
+                Die grafische Benutzeroberfläche bietet alle Funktionen für komfortables Kampagnen-Management.
+              </p>
+
+              <h3>GUI starten</h3>
+              <div class="docs-code">
+                <pre><code>python main.py
+
+# Mit Debug-Modus
+python main.py --debug</code></pre>
+              </div>
+
+              <h3>Tastenkürzel</h3>
+              <div class="docs-shortcuts">
+                @for (shortcut of shortcuts; track shortcut.keys) {
+                  <div class="docs-shortcut">
+                    <kbd>{{ shortcut.keys }}</kbd>
+                    <span>{{ shortcut.action }}</span>
+                  </div>
+                }
+              </div>
+
+              <h3>Features der GUI</h3>
+              <ul class="docs-feature-list">
+                <li><strong>Dashboard:</strong> Übersicht aller Kampagnen mit Live-Statistiken</li>
+                <li><strong>Kampagnen-Manager:</strong> Erstellen, bearbeiten und starten von Kampagnen</li>
+                <li><strong>Kontakt-Manager:</strong> CSV/Excel-Import mit Duplikat-Erkennung</li>
+                <li><strong>Template-Editor:</strong> HTML-Editor mit Live-Vorschau</li>
+                <li><strong>SMTP-Profile:</strong> Mehrere Absender-Konten verwalten</li>
+                <li><strong>Blacklist:</strong> Automatische Hard-Bounce-Erkennung</li>
+              </ul>
+            </article>
+          }
+
+          @case ('smtp') {
+            <article class="docs-article">
+              <h2 class="docs-article__title">
+                <i class="fa-solid fa-server" aria-hidden="true"></i>
+                SMTP-Konfiguration
+              </h2>
+              <p class="docs-article__intro">
+                Konfiguriere deinen E-Mail-Server für zuverlässigen Versand.
+              </p>
+
+              <h3>Umgebungsvariablen (.env)</h3>
+              <div class="docs-code">
+                <pre><code>export SMTP_HOST="smtp.deinserver.de"
+export SMTP_PORT="465"
+export SMTP_USER="mail&#64;deine-domain.de"
+export SMTP_PASS="dein-sicheres-passwort"</code></pre>
+              </div>
+
+              <h3>Absender-Daten (config/sender.yaml)</h3>
+              <div class="docs-code">
+                <pre><code>sender:
+  name: "Max Mustermann"
+  title: "Gründer & Entwickler"
+  email: "mail&#64;deine-domain.de"
+
+company:
+  name: "Deine Firma"
+  domain: "deine-domain.de"
+  url: "https://deine-domain.de"
+
+rate_limit:
+  delay_seconds: 80  # ~45 Mails/Stunde</code></pre>
+              </div>
+
+              <h3>Empfohlene SMTP-Einstellungen</h3>
+              <ul class="docs-feature-list">
+                <li><strong>Port 465:</strong> SSL-verschlüsselt (empfohlen)</li>
+                <li><strong>Port 587:</strong> STARTTLS-verschlüsselt</li>
+                <li><strong>Rate-Limit:</strong> 45-60 Mails/Stunde vermeidet Spam-Flags</li>
+              </ul>
+            </article>
+          }
+        }
+      </div>
+    </div>
+  </div>
+</section>

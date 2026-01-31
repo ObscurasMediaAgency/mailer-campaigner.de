@@ -1,0 +1,152 @@
+<!-- Hero Section -->
+<section class="features-hero">
+  <div class="container">
+    <span class="features-hero__badge">Features</span>
+    <h1 class="features-hero__title">
+      Alles für erfolgreiche
+      <span class="text-gradient">Kaltakquise</span>
+    </h1>
+    <p class="features-hero__description">
+      Entwickelt für Profis, die volle Kontrolle über ihre E-Mail-Kampagnen wollen – 
+      ohne monatliche Gebühren oder Datenweitergabe.
+    </p>
+  </div>
+</section>
+
+<!-- Main Features -->
+<section class="main-features section">
+  <div class="container">
+    @for (feature of mainFeatures; track feature.title; let i = $index) {
+      <article class="feature-block" [class.feature-block--reverse]="i % 2 !== 0">
+        <div class="feature-block__content">
+          <div class="feature-block__icon">
+            <i class="fa-solid {{ feature.icon }}" aria-hidden="true"></i>
+          </div>
+          <h2 class="feature-block__title">{{ feature.title }}</h2>
+          <p class="feature-block__description">{{ feature.description }}</p>
+          <ul class="feature-block__highlights">
+            @for (highlight of feature.highlights; track highlight) {
+              <li>
+                <i class="fa-solid fa-check" aria-hidden="true"></i>
+                {{ highlight }}
+              </li>
+            }
+          </ul>
+        </div>
+        <div class="feature-block__visual" aria-hidden="true">
+          <div class="feature-block__glow"></div>
+          <i class="fa-solid {{ feature.icon }}"></i>
+        </div>
+      </article>
+    }
+  </div>
+</section>
+
+<!-- Technical Features -->
+<section class="tech-features section">
+  <div class="container">
+    <div class="tech-features__header">
+      <span class="tech-features__badge">Technische Features</span>
+      <h2 class="tech-features__title">Zuverlässig & Sicher</h2>
+      <p class="tech-features__description">
+        Unter der Haube steckt robuste Technologie für professionellen E-Mail-Versand.
+      </p>
+    </div>
+
+    <div class="tech-features__grid">
+      @for (feature of technicalFeatures; track feature.title) {
+        <article class="tech-feature card">
+          <div class="tech-feature__icon">
+            <i class="fa-solid {{ feature.icon }}" aria-hidden="true"></i>
+          </div>
+          <h3 class="tech-feature__title">{{ feature.title }}</h3>
+          <p class="tech-feature__description">{{ feature.description }}</p>
+        </article>
+      }
+    </div>
+  </div>
+</section>
+
+<!-- GUI Features -->
+<section class="gui-features section">
+  <div class="container">
+    <div class="gui-features__header">
+      <span class="gui-features__badge">GUI-Oberfläche</span>
+      <h2 class="gui-features__title">Intuitiv & Modern</h2>
+      <p class="gui-features__description">
+        Die grafische Oberfläche macht Kampagnen-Management zum Kinderspiel.
+      </p>
+    </div>
+
+    <div class="gui-features__grid">
+      @for (feature of guiFeatures; track feature.title) {
+        <article class="gui-feature">
+          <div class="gui-feature__icon">
+            <i class="fa-solid {{ feature.icon }}" aria-hidden="true"></i>
+          </div>
+          <div class="gui-feature__content">
+            <h3 class="gui-feature__title">{{ feature.title }}</h3>
+            <p class="gui-feature__description">{{ feature.description }}</p>
+          </div>
+        </article>
+      }
+    </div>
+  </div>
+</section>
+
+<!-- Data Privacy -->
+<section class="privacy section">
+  <div class="container">
+    <div class="privacy__card">
+      <div class="privacy__icon">
+        <i class="fa-solid fa-lock" aria-hidden="true"></i>
+      </div>
+      <div class="privacy__content">
+        <h2 class="privacy__title">100% Datenschutz-konform</h2>
+        <p class="privacy__description">
+          Alle Daten bleiben auf deinem lokalen System. Keine Cloud-Speicherung, 
+          keine Drittanbieter, keine DSGVO-Sorgen. Du hast die volle Kontrolle.
+        </p>
+        <ul class="privacy__list">
+          <li>
+            <i class="fa-solid fa-check-circle" aria-hidden="true"></i>
+            Lokale Datenspeicherung
+          </li>
+          <li>
+            <i class="fa-solid fa-check-circle" aria-hidden="true"></i>
+            Verschlüsselte SMTP-Verbindung
+          </li>
+          <li>
+            <i class="fa-solid fa-check-circle" aria-hidden="true"></i>
+            Keine Telemetrie
+          </li>
+          <li>
+            <i class="fa-solid fa-check-circle" aria-hidden="true"></i>
+            Open-Source-Bibliotheken
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA Section -->
+<section class="features-cta section">
+  <div class="container">
+    <div class="features-cta__card">
+      <h2 class="features-cta__title">Überzeugt?</h2>
+      <p class="features-cta__description">
+        Teste Mailer Campaigner 14 Tage kostenlos und überzeuge dich selbst.
+      </p>
+      <div class="features-cta__actions">
+        <a routerLink="/download" class="btn btn-primary btn-lg">
+          <i class="fa-solid fa-download" aria-hidden="true"></i>
+          Jetzt herunterladen
+        </a>
+        <a routerLink="/pricing" class="btn btn-secondary btn-lg">
+          Preise ansehen
+        </a>
+      </div>
+    </div>
+  </div>
+</section>

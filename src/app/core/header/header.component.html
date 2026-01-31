@@ -1,0 +1,53 @@
+<header class="header">
+  <div class="header__container container">
+    <a routerLink="/" class="header__logo" aria-label="Mailer Campaigner - Zur Startseite">
+      <img
+        ngSrc="assets/logo.png"
+        alt="Mailer Campaigner Logo"
+        width="75"
+        height="75"
+        priority
+      />
+      <span class="header__logo-text">
+        <span class="text-gradient">Mailer</span> Campaigner
+      </span>
+    </a>
+
+    <nav class="header__nav" [class.header__nav--open]="mobileMenuOpen()" aria-label="Hauptnavigation">
+      @for (item of navItems; track item.path) {
+        <a
+          [routerLink]="item.path"
+          routerLinkActive="header__nav-link--active"
+          [routerLinkActiveOptions]="{ exact: item.path === '/' }"
+          class="header__nav-link"
+          (click)="closeMobileMenu()"
+        >
+          <i class="fa-solid {{ item.icon }}" aria-hidden="true"></i>
+          {{ item.label }}
+        </a>
+      }
+    </nav>
+
+    <div class="header__actions">
+      <a routerLink="/download" class="btn btn-primary btn-sm header__cta">
+        <i class="fa-solid fa-download" aria-hidden="true"></i>
+        Download
+      </a>
+
+      <button
+        type="button"
+        class="header__mobile-toggle"
+        [attr.aria-expanded]="mobileMenuOpen()"
+        aria-controls="mobile-menu"
+        aria-label="Menü öffnen"
+        (click)="toggleMobileMenu()"
+      >
+        <i class="fa-solid" [class.fa-bars]="!mobileMenuOpen()" [class.fa-xmark]="mobileMenuOpen()" aria-hidden="true"></i>
+      </button>
+    </div>
+  </div>
+
+  @if (mobileMenuOpen()) {
+    <div class="header__mobile-backdrop" (click)="closeMobileMenu()"></div>
+  }
+</header>
