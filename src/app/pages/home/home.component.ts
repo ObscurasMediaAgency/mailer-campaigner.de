@@ -61,12 +61,12 @@ export class HomeComponent {
 
   readonly testimonials = [
     {
-      quote: 'Endlich ein Tool, das mir die volle Kontrolle über meine Akquise-Mails gibt. Die YAML-Konfiguration ist genial!',
+      quote: 'Endlich ein Tool, das mir die volle Kontrolle über meine Geschäfts-E-Mails gibt. Die YAML-Konfiguration ist genial!',
       author: 'Max M.',
       role: 'Freelance Entwickler',
     },
     {
-      quote: 'Das Bounce-Handling spart mir Stunden an manueller Arbeit. Absolut empfehlenswert für B2B-Akquise.',
+      quote: 'Das Bounce-Handling spart mir Stunden an manueller Arbeit. Absolut empfehlenswert für B2B-Kommunikation.',
       author: 'Sarah K.',
       role: 'Marketing Manager',
     },
