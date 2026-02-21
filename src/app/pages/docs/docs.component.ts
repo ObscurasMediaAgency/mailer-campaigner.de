@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, ElementRef, signal, viewChild } from '@angular/core';
 import { RouterLink } from '@angular/router';
 
 interface DocSection {
@@ -23,6 +23,7 @@ interface DocArticle {
 })
 export class DocsComponent {
   readonly activeSection = signal('quickstart');
+  readonly docsContent = viewChild<ElementRef<HTMLElement>>('docsContent');
 
   readonly sections: DocSection[] = [
     { id: 'quickstart', title: 'Schnellstart', icon: 'fa-rocket' },
@@ -119,6 +120,10 @@ export class DocsComponent {
 
   setActiveSection(sectionId: string): void {
     this.activeSection.set(sectionId);
+    const contentEl = this.docsContent()?.nativeElement;
+    if (contentEl) {
+      contentEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
   }
 
   copyToClipboard(text: string): void {
