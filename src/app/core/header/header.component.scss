@@ -4,7 +4,7 @@
   left: 0;
   right: 0;
   z-index: 100;
-  background: rgba(10, 10, 15, 0.8);
+  background: var(--header-bg);
   backdrop-filter: blur(12px);
   border-bottom: 1px solid var(--color-border);
 
@@ -104,6 +104,35 @@
     display: flex;
     align-items: center;
     gap: var(--spacing-md);
+  }
+
+  &__theme-toggle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    background: transparent;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    color: var(--color-text-secondary);
+    cursor: pointer;
+    transition: all var(--transition-fast);
+
+    i {
+      font-size: 1.1rem;
+      transition: transform var(--transition-base);
+    }
+
+    &:hover {
+      background: var(--color-bg-tertiary);
+      border-color: var(--color-accent-primary);
+      color: var(--color-accent-primary);
+
+      i {
+        transform: rotate(15deg);
+      }
+    }
   }
 
   &__cta {

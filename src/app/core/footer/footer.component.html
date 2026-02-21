@@ -54,6 +54,46 @@
           }
         </nav>
       </div>
+
+      <!-- Newsletter -->
+      <div class="footer__section footer__section--newsletter">
+        <h4 class="footer__section-title">Newsletter</h4>
+        <p class="footer__newsletter-text">
+          Updates zu neuen Features und Releases direkt in dein Postfach.
+        </p>
+        <form class="footer__newsletter-form" (submit)="subscribeNewsletter($event)">
+          <div class="footer__newsletter-input-group">
+            <input
+              type="email"
+              placeholder="deine@email.de"
+              class="footer__newsletter-input"
+              [value]="newsletterEmail()"
+              (input)="updateEmail($event)"
+              required
+              aria-label="E-Mail für Newsletter"
+            />
+            <button type="submit" class="footer__newsletter-btn" [disabled]="newsletterStatus() === 'loading'">
+              @if (newsletterStatus() === 'loading') {
+                <i class="fa-solid fa-spinner fa-spin" aria-hidden="true"></i>
+              } @else {
+                <i class="fa-solid fa-paper-plane" aria-hidden="true"></i>
+              }
+            </button>
+          </div>
+          @if (newsletterStatus() === 'success') {
+            <p class="footer__newsletter-message footer__newsletter-message--success">
+              <i class="fa-solid fa-check" aria-hidden="true"></i>
+              Erfolgreich angemeldet!
+            </p>
+          }
+          @if (newsletterStatus() === 'error') {
+            <p class="footer__newsletter-message footer__newsletter-message--error">
+              <i class="fa-solid fa-exclamation-circle" aria-hidden="true"></i>
+              Bitte gib eine gültige E-Mail ein.
+            </p>
+          }
+        </form>
+      </div>
     </div>
 
     <div class="footer__bottom">

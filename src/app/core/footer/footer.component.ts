@@ -1,5 +1,7 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
 import { RouterLink } from '@angular/router';
+
+type NewsletterStatus = 'idle' | 'loading' | 'success' | 'error';
 
 @Component({
   selector: 'app-footer',
@@ -10,6 +12,8 @@ import { RouterLink } from '@angular/router';
 })
 export class FooterComponent {
   readonly currentYear = new Date().getFullYear();
+  readonly newsletterEmail = signal('');
+  readonly newsletterStatus = signal<NewsletterStatus>('idle');
 
   readonly footerLinks = {
     product: [
@@ -34,5 +38,41 @@ export class FooterComponent {
   readonly socialLinks = [
     { icon: 'fa-github', url: 'https://github.com/obscuras-media-agency', label: 'GitHub' },
     { icon : 'fa-telegram', url: 'https://t.me/obscuras_media_agency/8', label: 'Telegram' },
-    { icon: 'fa-discord', url: 'https://discord.gg/obscuras-media-agency', label: 'Discord' },];
+    { icon: 'fa-discord', url: 'https://discord.gg/obscuras-media-agency', label: 'Discord' },
+  ];
+
+  updateEmail(event: Event): void {
+    const input = event.target as HTMLInputElement;
+    this.newsletterEmail.set(input.value);
+  }
+
+  subscribeNewsletter(event: Event): void {
+    event.preventDefault();
+    const email = this.newsletterEmail();
+
+    if (!email || !this.isValidEmail(email)) {
+      this.newsletterStatus.set('error');
+      return;
+    }
+
+    this.newsletterStatus.set('loading');
+
+    // Simulate API call
+    setTimeout(() => {
+      // Store in localStorage for demo
+      const subscribers = JSON.parse(localStorage.getItem('newsletter-subscribers') || '[]');
+      subscribers.push({ email, date: new Date().toISOString() });
+      localStorage.setItem('newsletter-subscribers', JSON.stringify(subscribers));
+
+      this.newsletterStatus.set('success');
+      this.newsletterEmail.set('');
+
+      // Reset status after 3 seconds
+      setTimeout(() => this.newsletterStatus.set('idle'), 3000);
+    }, 800);
+  }
+
+  private isValidEmail(email: string): boolean {
+    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+  }
 }

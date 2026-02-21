@@ -29,6 +29,15 @@
     </nav>
 
     <div class="header__actions">
+      <button
+        type="button"
+        class="header__theme-toggle"
+        [attr.aria-label]="theme() === 'dark' ? 'Zum Light-Mode wechseln' : 'Zum Dark-Mode wechseln'"
+        (click)="toggleTheme()"
+      >
+        <i class="fa-solid" [class.fa-sun]="theme() === 'dark'" [class.fa-moon]="theme() === 'light'" aria-hidden="true"></i>
+      </button>
+
       <a routerLink="/download" class="btn btn-primary btn-sm header__cta">
         <i class="fa-solid fa-download" aria-hidden="true"></i>
         Download

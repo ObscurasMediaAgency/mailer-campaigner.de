@@ -1,6 +1,7 @@
-import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 import { NgOptimizedImage } from '@angular/common';
+import { ThemeService } from '../services/theme.service';
 
 interface NavItem {
   label: string;
@@ -16,7 +17,10 @@ interface NavItem {
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class HeaderComponent {
+  private readonly themeService = inject(ThemeService);
+  
   readonly mobileMenuOpen = signal(false);
+  readonly theme = this.themeService.theme;
   
   readonly navItems: NavItem[] = [
     { label: 'Startseite', path: '/', icon: 'fa-house' },
@@ -32,5 +36,9 @@ export class HeaderComponent {
 
   closeMobileMenu(): void {
     this.mobileMenuOpen.set(false);
+  }
+
+  toggleTheme(): void {
+    this.themeService.toggleTheme();
   }
 }

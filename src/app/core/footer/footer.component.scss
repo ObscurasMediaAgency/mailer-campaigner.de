@@ -12,10 +12,14 @@
 
   &__grid {
     display: grid;
-    grid-template-columns: 2fr repeat(3, 1fr);
+    grid-template-columns: 2fr repeat(4, 1fr);
     gap: var(--spacing-2xl);
 
-    @media (max-width: 992px) {
+    @media (max-width: 1200px) {
+      grid-template-columns: 2fr repeat(2, 1fr);
+    }
+
+    @media (max-width: 768px) {
       grid-template-columns: repeat(2, 1fr);
     }
 
@@ -99,6 +103,103 @@
 
     &:hover {
       color: var(--color-accent-primary);
+    }
+  }
+
+  // Newsletter Section
+  &__section--newsletter {
+    @media (max-width: 1200px) {
+      grid-column: span 2;
+    }
+
+    @media (max-width: 576px) {
+      grid-column: span 1;
+    }
+  }
+
+  &__newsletter-text {
+    color: var(--color-text-muted);
+    font-size: 0.875rem;
+    line-height: 1.6;
+    margin-bottom: var(--spacing-md);
+  }
+
+  &__newsletter-form {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-sm);
+  }
+
+  &__newsletter-input-group {
+    display: flex;
+    gap: var(--spacing-xs);
+  }
+
+  &__newsletter-input {
+    flex: 1;
+    padding: 0.625rem 0.875rem;
+    background: var(--color-bg-tertiary);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    color: var(--color-text-primary);
+    font-size: 0.875rem;
+    transition: all var(--transition-fast);
+
+    &::placeholder {
+      color: var(--color-text-muted);
+    }
+
+    &:focus {
+      outline: none;
+      border-color: var(--color-accent-primary);
+      box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.15);
+    }
+  }
+
+  &__newsletter-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 42px;
+    background: var(--gradient-primary);
+    border: none;
+    border-radius: var(--radius-md);
+    color: white;
+    cursor: pointer;
+    transition: all var(--transition-fast);
+
+    &:hover:not(:disabled) {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-md);
+    }
+
+    &:disabled {
+      opacity: 0.7;
+      cursor: not-allowed;
+    }
+
+    i {
+      font-size: 0.875rem;
+    }
+  }
+
+  &__newsletter-message {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-xs);
+    font-size: 0.8125rem;
+    margin: 0;
+
+    i {
+      font-size: 0.75rem;
+    }
+
+    &--success {
+      color: var(--color-success);
+    }
+
+    &--error {
+      color: var(--color-error);
     }
   }
 
