@@ -33,7 +33,6 @@ export class FooterComponent {
 
   readonly socialLinks = [
     { icon: 'fa-github', url: 'https://github.com/obscuras-media-agency', label: 'GitHub' },
-    { icon: 'fa-linkedin', url: 'https://linkedin.com/company/obscuras-media-agency', label: 'LinkedIn' },
-    { icon: 'fa-twitter', url: 'https://twitter.com/obscuras_media', label: 'Twitter' },
-  ];
+    { icon : 'fa-telegram', url: 'https://t.me/obscuras_media_agency/8', label: 'Telegram' },
+    { icon: 'fa-discord', url: 'https://discord.gg/obscuras-media-agency', label: 'Discord' },];
 }
