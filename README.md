@@ -1,3 +1,4 @@
+<div align="center">
 # 📧 Mailer Campaigner
 
 ## Professionelle E-Mail-Kampagnen-Management Website
@@ -8,6 +9,10 @@
 [![License](https://img.shields.io/badge/License-Proprietary-orange?style=for-the-badge)](LICENSE)
 
 [Demo ansehen](https://mailer-campaigner.de) · [Features](#-features) · [Installation](#-installation) · [Struktur](#-projektstruktur)
+
+![Mailer Campaigner Logo](https://github.com/ObscurasMediaAgency/mailer-campaigner.de/blob/main/public/assets/logo.png)
+
+</div>
 
 ---
 
