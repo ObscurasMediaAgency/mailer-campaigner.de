@@ -1,7 +1,5 @@
 # 📧 Mailer Campaigner
 
-<div align="center">
-
 ## Professionelle E-Mail-Kampagnen-Management Website
 
 [![Angular](https://img.shields.io/badge/Angular-21-DD0031?style=for-the-badge&logo=angular&logoColor=white)](https://angular.dev/)
@@ -12,8 +10,6 @@
 [Demo ansehen](https://mailer-campaigner.de) · [Features](#-features) · [Installation](#-installation) · [Struktur](#-projektstruktur)
 
 ![Mailer Campaigner Logo](https://github.com/ObscurasMediaAgency/mailer-campaigner.de/blob/main/public/assets/logo.png)
-
-</div>
 
 ---
 
