@@ -38,6 +38,7 @@ Marketing-Website für **Mailer Campaigner** – ein lokales E-Mail-Kampagnen-To
 | **Preise** | `/pricing` | Lizenzmodell (€129/Jahr) |
 | **Download** | `/download` | Installation & Systemanforderungen |
 | **Dokumentation** | `/docs` | Quickstart, CLI, Templates |
+| **Changelog** | `/changelog` | Versionshistorie & Updates |
 | **Impressum** | `/impressum` | Anbieterkennung gemäß TMG |
 | **Datenschutz** | `/datenschutz` | DSGVO-Datenschutzerklärung |
 | **AGB** | `/agb` | Allgemeine Geschäftsbedingungen |
@@ -94,6 +95,7 @@ src/app/
 │   ├── pricing/
 │   ├── download/
 │   ├── docs/
+│   ├── changelog/
 │   ├── imprint/
 │   ├── privacy/
 │   └── terms/

@@ -1,0 +1,125 @@
+<section class="changelog">
+  <div class="container">
+    <header class="changelog__header">
+      <h1 class="changelog__title">
+        <i class="fa-solid fa-clock-rotate-left" aria-hidden="true"></i>
+        Changelog
+      </h1>
+      <p class="changelog__subtitle">
+        Versionshistorie und Änderungsprotokoll für Mailer Campaigner
+      </p>
+    </header>
+
+    <!-- Quick Navigation -->
+    <nav class="changelog__nav" aria-label="Versionen">
+      <span class="changelog__nav-label">Springe zu:</span>
+      @for (entry of changelog; track entry.version) {
+        <a [href]="'#v' + entry.version" class="changelog__nav-link">
+          v{{ entry.version }}
+        </a>
+      }
+    </nav>
+
+    <!-- Legend -->
+    <div class="changelog__legend">
+      @for (category of ['added', 'changed', 'fixed', 'removed', 'security']; track category) {
+        <span class="changelog__legend-item">
+          <i 
+            class="fa-solid {{ categoryIcons[category].icon }}" 
+            [style.color]="categoryIcons[category].color"
+            aria-hidden="true"
+          ></i>
+          {{ categoryIcons[category].label }}
+        </span>
+      }
+    </div>
+
+    <!-- Timeline -->
+    <div class="changelog__timeline">
+      @for (entry of changelog; track entry.version; let isFirst = $first) {
+        <article 
+          class="changelog__entry" 
+          [class.changelog__entry--latest]="isFirst"
+          [id]="'v' + entry.version"
+        >
+          <!-- Version Header -->
+          <header class="changelog__entry-header">
+            <div class="changelog__version-info">
+              <h2 class="changelog__version">
+                v{{ entry.version }}
+                @if (isFirst) {
+                  <span class="badge badge--latest">Aktuell</span>
+                }
+                <span 
+                  class="badge"
+                  [class.badge--major]="entry.type === 'major'"
+                  [class.badge--minor]="entry.type === 'minor'"
+                  [class.badge--patch]="entry.type === 'patch'"
+                >
+                  {{ entry.type }}
+                </span>
+              </h2>
+              <time class="changelog__date">
+                <i class="fa-solid fa-calendar" aria-hidden="true"></i>
+                {{ entry.date }}
+              </time>
+            </div>
+
+            @if (entry.highlights && entry.highlights.length > 0) {
+              <ul class="changelog__highlights">
+                @for (highlight of entry.highlights; track $index) {
+                  <li>
+                    <i class="fa-solid fa-star" aria-hidden="true"></i>
+                    {{ highlight }}
+                  </li>
+                }
+              </ul>
+            }
+          </header>
+
+          <!-- Changes -->
+          <div class="changelog__changes">
+            @for (changeGroup of entry.changes; track changeGroup.category) {
+              <div class="changelog__category">
+                <h3 class="changelog__category-title">
+                  <i 
+                    class="fa-solid {{ categoryIcons[changeGroup.category].icon }}"
+                    [style.color]="categoryIcons[changeGroup.category].color"
+                    aria-hidden="true"
+                  ></i>
+                  {{ categoryIcons[changeGroup.category].label }}
+                  <span class="changelog__category-count">{{ changeGroup.items.length }}</span>
+                </h3>
+                <ul class="changelog__list">
+                  @for (item of changeGroup.items; track $index) {
+                    <li>{{ item }}</li>
+                  }
+                </ul>
+              </div>
+            }
+          </div>
+        </article>
+      }
+    </div>
+
+    <!-- Footer CTA -->
+    <footer class="changelog__footer">
+      <div class="changelog__cta">
+        <p>Immer auf dem neuesten Stand bleiben?</p>
+        <div class="changelog__cta-buttons">
+          <a routerLink="/download" class="btn btn-primary">
+            <i class="fa-solid fa-download" aria-hidden="true"></i>
+            Jetzt herunterladen
+          </a>
+          <a href="https://github.com/obscuras-media-agency/mailer-campaigner/releases" 
+             target="_blank" 
+             rel="noopener noreferrer"
+             class="btn btn-outline">
+            <i class="fa-brands fa-github" aria-hidden="true"></i>
+            GitHub Releases
+          </a>
+        </div>
+      </div>
+    </footer>
+  </div>
+</section>

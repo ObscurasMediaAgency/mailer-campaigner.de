@@ -9,3 +9,6 @@ export { FeaturesComponent } from './features/features.component';
 export { ImprintComponent } from './imprint/imprint.component';
 export { PrivacyComponent } from './privacy/privacy.component';
 export { TermsComponent } from './terms/terms.component';
+
+// Changelog
+export { ChangelogComponent } from './changelog/changelog.component';

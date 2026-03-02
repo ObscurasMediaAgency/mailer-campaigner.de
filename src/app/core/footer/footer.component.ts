@@ -20,7 +20,7 @@ export class FooterComponent {
       { label: 'Features', path: '/features' },
       { label: 'Preise', path: '/pricing' },
       { label: 'Download', path: '/download' },
-      { label: 'Changelog', path: '/docs/changelog' },
+      { label: 'Changelog', path: '/changelog' },
     ],
     resources: [
       { label: 'Dokumentation', path: '/docs' },

@@ -366,6 +366,7 @@ export class SearchSpotlightComponent implements OnInit, OnDestroy {
     { title: 'Impressum', description: 'Anbieterkennzeichnung gemäß TMG', path: '/impressum', icon: 'fa-building', category: 'Rechtliches' },
     { title: 'Datenschutz', description: 'Datenschutzerklärung DSGVO', path: '/datenschutz', icon: 'fa-shield-halved', category: 'Rechtliches' },
     { title: 'AGB', description: 'Allgemeine Geschäftsbedingungen', path: '/agb', icon: 'fa-file-contract', category: 'Rechtliches' },
+    { title: 'Changelog', description: 'Versionshistorie und Updates', path: '/changelog', icon: 'fa-clock-rotate-left', category: 'Produkt' },
   ];
 
   readonly filteredResults = computed(() => {

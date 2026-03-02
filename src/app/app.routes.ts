@@ -55,6 +55,12 @@ export const routes: Routes = [
         title: 'AGB - Mailer Campaigner',
       },
       {
+        path: 'changelog',
+        loadComponent: () =>
+          import('./pages/changelog/changelog.component').then((m) => m.ChangelogComponent),
+        title: 'Changelog - Mailer Campaigner',
+      },
+      {
         path: '**',
         redirectTo: '',
       },
