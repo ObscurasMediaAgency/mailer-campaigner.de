@@ -1,59 +1,170 @@
-# MailerCampaignerDe
+# 📧 Mailer Campaigner
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 21.1.2.
+## Professionelle E-Mail-Kampagnen-Management Website
 
-## Development server
+[![Angular](https://img.shields.io/badge/Angular-21-DD0031?style=for-the-badge&logo=angular&logoColor=white)](https://angular.dev/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5.7-3178C6?style=for-the-badge&logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
+[![SCSS](https://img.shields.io/badge/SCSS-Styling-CC6699?style=for-the-badge&logo=sass&logoColor=white)](https://sass-lang.com/)
+[![License](https://img.shields.io/badge/License-Proprietary-orange?style=for-the-badge)](LICENSE)
 
-To start a local development server, run:
+[Demo ansehen](https://mailer-campaigner.de) · [Features](#-features) · [Installation](#-installation) · [Struktur](#-projektstruktur)
+
+---
+
+## 🎯 Über das Projekt
+
+Marketing-Website für **Mailer Campaigner** – ein lokales E-Mail-Kampagnen-Tool für professionelle B2B-Kommunikation. Die Website präsentiert Features, Preise und Dokumentation der Software.
+
+### ✨ Highlights
+
+- 🌓 **Light/Dark Mode** mit persistenter Theme-Einstellung
+- 🎨 **5 Akzentfarben** wählbar (Indigo, Emerald, Rose, Amber, Cyan)
+- 🔍 **Spotlight-Suche** (Cmd/Ctrl + K)
+- ⌨️ **Keyboard Shortcuts** (? für Übersicht)
+- 📜 **Smooth Page Transitions** (View Transitions API)
+- 🍪 **DSGVO-konformer Cookie-Banner**
+- 📱 **Vollständig responsive** für alle Geräte
+
+---
+
+## 🚀 Features
+
+| Seite | Route | Beschreibung |
+| ----- | ----- | ------------ |
+| **Home** | `/` | Landing Page mit Hero, Features & CTA |
+| **Features** | `/features` | Detaillierte Funktionsübersicht |
+| **Preise** | `/pricing` | Lizenzmodell (€129/Jahr) |
+| **Download** | `/download` | Installation & Systemanforderungen |
+| **Dokumentation** | `/docs` | Quickstart, CLI, Templates |
+| **Impressum** | `/impressum` | Anbieterkennung gemäß TMG |
+| **Datenschutz** | `/datenschutz` | DSGVO-Datenschutzerklärung |
+| **AGB** | `/agb` | Allgemeine Geschäftsbedingungen |
+
+---
+
+## 🛠 Tech Stack
+
+- **Framework:** Angular 21 (Standalone Components)
+- **Sprache:** TypeScript 5.7 (Strict Mode)
+- **Styling:** SCSS mit CSS Custom Properties
+- **State:** Angular Signals
+- **Fonts:** Inter & JetBrains Mono
+- **Icons:** Font Awesome 6.5
+
+---
+
+## 📦 Installation
 
 ```bash
+# Repository klonen
+git clone https://github.com/obscuras-media-agency/mailer-campaigner.de.git
+cd mailer-campaigner.de
+
+# Dependencies installieren
+npm install
+
+# Development Server starten
 ng serve
 ```
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+Die Anwendung läuft dann unter `http://localhost:4200/`
 
-## Code scaffolding
+---
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
-
-```bash
-ng generate component component-name
-```
-
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+## 🏗 Projektstruktur
 
 ```bash
-ng generate --help
+src/app/
+├── core/                    # Kern-Komponenten
+│   ├── header/              # Navigation & Theme Toggle
+│   ├── footer/              # Footer & Newsletter
+│   ├── layout/              # Page Layout Wrapper
+│   ├── cookie-banner/       # DSGVO Cookie Consent
+│   ├── search-spotlight/    # Cmd+K Suche
+│   ├── scroll-utilities/    # Progress Bar & Scroll-to-Top
+│   ├── theme-picker/        # Akzentfarben-Auswahl
+│   ├── keyboard-shortcuts/  # Shortcuts Overlay
+│   └── services/            # ThemeService
+│
+├── pages/                   # Lazy-loaded Seiten
+│   ├── home/
+│   ├── features/
+│   ├── pricing/
+│   ├── download/
+│   ├── docs/
+│   ├── imprint/
+│   ├── privacy/
+│   └── terms/
+│
+├── shared/                  # Geteilte Ressourcen
+│   └── styles/              # Wiederverwendbare SCSS
+│
+├── app.routes.ts            # Routing-Konfiguration
+├── app.config.ts            # App-Konfiguration
+└── app.ts                   # Root Component
 ```
 
-## Building
+---
 
-To build the project run:
+## 🧪 Scripts
 
-```bash
-ng build
+| Command | Beschreibung |
+| ------- | ------------ |
+| `ng serve` | Development Server (Port 4200) |
+| `ng build` | Production Build nach `dist/` |
+| `ng build --configuration=production` | Optimierter Production Build |
+| `ng test` | Unit Tests mit Vitest |
+| `ng lint` | Code Linting |
+
+---
+
+## 📊 Build-Größen
+
+```text
+Initial:   ~75 kB (gzipped)
+Lazy:      ~30 kB pro Page (gzipped)
+Styles:    ~1.8 kB (gzipped)
 ```
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+---
 
-## Running unit tests
+## 🎨 Theming
 
-To execute unit tests with the [Vitest](https://vitest.dev/) test runner, use the following command:
+Das Theme-System basiert auf CSS Custom Properties:
 
-```bash
-ng test
+```scss
+// Dark Theme (Standard)
+--bg: #0a0a0f;
+--text: #f5f5f7;
+--accent: #6366f1;
+
+// Light Theme
+[data-theme="light"] {
+  --bg: #fafafa;
+  --text: #1a1a1a;
+}
 ```
 
-## Running end-to-end tests
+Akzentfarben werden als `--accent` Variable gesetzt und persistent in `localStorage` gespeichert.
 
-For end-to-end (e2e) testing, run:
+---
 
-```bash
-ng e2e
-```
+## ⌨️ Keyboard Shortcuts
 
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
+| Shortcut | Aktion |
+| -------- | ------ |
+| `Cmd/Ctrl + K` | Spotlight-Suche öffnen |
+| `?` | Shortcuts-Übersicht |
+| `ESC` | Dialoge schließen |
 
-## Additional Resources
+---
 
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+## 📄 Lizenz
+
+Copyright © 2026 Obscuras Media Agency. Alle Rechte vorbehalten.
+
+---
+
+### Made with ❤️ by Obscuras Media Agency
+
+[Website](https://obscuras-media-agency.de) · [GitHub](https://github.com/obscuras-media-agency) · [Telegram](https://t.me/obscuras_media_agency)
