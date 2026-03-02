@@ -37,6 +37,24 @@ export const routes: Routes = [
         title: 'Dokumentation - Mailer Campaigner',
       },
       {
+        path: 'impressum',
+        loadComponent: () =>
+          import('./pages/imprint/imprint.component').then((m) => m.ImprintComponent),
+        title: 'Impressum - Mailer Campaigner',
+      },
+      {
+        path: 'datenschutz',
+        loadComponent: () =>
+          import('./pages/privacy/privacy.component').then((m) => m.PrivacyComponent),
+        title: 'Datenschutzerklärung - Mailer Campaigner',
+      },
+      {
+        path: 'agb',
+        loadComponent: () =>
+          import('./pages/terms/terms.component').then((m) => m.TermsComponent),
+        title: 'AGB - Mailer Campaigner',
+      },
+      {
         path: '**',
         redirectTo: '',
       },

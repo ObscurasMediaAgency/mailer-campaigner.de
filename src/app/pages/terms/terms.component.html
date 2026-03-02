@@ -1,0 +1,102 @@
+<section class="legal-page">
+  <div class="container">
+    <header class="legal-page__header">
+      <h1 class="legal-page__title">
+        <i class="fa-solid fa-file-contract" aria-hidden="true"></i>
+        Allgemeine Geschäftsbedingungen
+      </h1>
+      <p class="legal-page__subtitle">
+        für die Nutzung der Software "Mailer Campaigner"
+      </p>
+    </header>
+
+    <div class="legal-page__content">
+      <!-- Einleitung -->
+      <article class="legal-section legal-section--highlight">
+        <div class="legal-section__content">
+          <p>
+            <strong>Anbieter:</strong> {{ companyInfo.name }}, {{ companyInfo.owner }}<br>
+            <strong>Produkt:</strong> {{ productInfo.name }}<br>
+            <strong>Lizenzpreis:</strong> {{ productInfo.price }} {{ productInfo.period }} ({{ productInfo.vat }})
+          </p>
+          <p>
+            Bei Fragen zu diesen AGB wenden Sie sich bitte an:
+            <a [href]="'mailto:' + companyInfo.email">{{ companyInfo.email }}</a>
+          </p>
+        </div>
+      </article>
+
+      <!-- Inhaltsverzeichnis -->
+      <nav class="terms-toc" aria-label="Inhaltsverzeichnis">
+        <h2 class="terms-toc__title">Inhaltsverzeichnis</h2>
+        <ol class="terms-toc__list">
+          @for (section of sections; track section.id; let i = $index) {
+            <li>
+              <a [href]="'#' + section.id" class="terms-toc__link">
+                {{ section.title }}
+              </a>
+            </li>
+          }
+        </ol>
+      </nav>
+
+      <!-- Sections -->
+      @for (section of sections; track section.id; let i = $index) {
+        <article class="legal-section" [id]="section.id">
+          <h2 class="legal-section__title">
+            <span class="legal-section__number">§ {{ i + 1 }}</span>
+            <i class="fa-solid {{ section.icon }}" aria-hidden="true"></i>
+            {{ section.title }}
+          </h2>
+          <div class="legal-section__content">
+            <ol class="legal-list legal-list--paragraphs">
+              @for (paragraph of section.content; track $index) {
+                <li>{{ paragraph }}</li>
+              }
+            </ol>
+          </div>
+        </article>
+      }
+
+      <!-- Kontakt -->
+      <article class="legal-section legal-section--contact">
+        <h2 class="legal-section__title">
+          <i class="fa-solid fa-envelope" aria-hidden="true"></i>
+          Kontakt & Support
+        </h2>
+        <div class="legal-section__content">
+          <p>
+            Bei Fragen zu diesen AGB, Ihrer Lizenz oder technischen Problemen:
+          </p>
+          <ul class="legal-list legal-list--contact">
+            <li>
+              <i class="fa-solid fa-envelope" aria-hidden="true"></i>
+              <a [href]="'mailto:' + companyInfo.email">{{ companyInfo.email }}</a>
+            </li>
+            <li>
+              <i class="fa-solid fa-headset" aria-hidden="true"></i>
+              <a [href]="'mailto:' + companyInfo.supportEmail">{{ companyInfo.supportEmail }}</a>
+            </li>
+          </ul>
+          <p class="legal-section__cta">
+            <a routerLink="/impressum" class="btn btn-outline">
+              <i class="fa-solid fa-building" aria-hidden="true"></i>
+              Impressum
+            </a>
+            <a routerLink="/datenschutz" class="btn btn-outline">
+              <i class="fa-solid fa-shield-halved" aria-hidden="true"></i>
+              Datenschutz
+            </a>
+          </p>
+        </div>
+      </article>
+
+      <footer class="legal-page__footer">
+        <p class="legal-page__updated">
+          <i class="fa-solid fa-clock" aria-hidden="true"></i>
+          Zuletzt aktualisiert: {{ lastUpdated }}
+        </p>
+      </footer>
+    </div>
+  </div>
+</section>

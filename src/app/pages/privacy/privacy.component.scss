@@ -1,0 +1,23 @@
+@use '../../shared/styles/legal-page';
+
+.legal-section__content {
+  h3 {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--text);
+    margin: 1.5rem 0 0.75rem;
+
+    &:first-child {
+      margin-top: 0;
+    }
+  }
+
+  code {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.875rem;
+    color: var(--accent);
+    background: rgba(var(--accent-rgb), 0.1);
+    padding: 0.125rem 0.375rem;
+    border-radius: var(--radius-sm);
+  }
+}

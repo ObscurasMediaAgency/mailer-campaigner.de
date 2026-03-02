@@ -363,6 +363,9 @@ export class SearchSpotlightComponent implements OnInit, OnDestroy {
     { title: 'SMTP einrichten', description: 'E-Mail-Server konfigurieren', path: '/docs', icon: 'fa-server', category: 'Docs' },
     { title: 'Templates', description: 'E-Mail-Vorlagen erstellen', path: '/docs', icon: 'fa-code', category: 'Docs' },
     { title: 'GUI-Oberfläche', description: 'Grafische Benutzeroberfläche', path: '/docs', icon: 'fa-desktop', category: 'Docs' },
+    { title: 'Impressum', description: 'Anbieterkennzeichnung gemäß TMG', path: '/impressum', icon: 'fa-building', category: 'Rechtliches' },
+    { title: 'Datenschutz', description: 'Datenschutzerklärung DSGVO', path: '/datenschutz', icon: 'fa-shield-halved', category: 'Rechtliches' },
+    { title: 'AGB', description: 'Allgemeine Geschäftsbedingungen', path: '/agb', icon: 'fa-file-contract', category: 'Rechtliches' },
   ];
 
   readonly filteredResults = computed(() => {
