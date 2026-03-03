@@ -150,4 +150,19 @@ export class ChangelogComponent {
       ],
     },
   ];
+
+  scrollToVersion(version: string, event: Event): void {
+    event.preventDefault();
+    const element = document.getElementById('v' + version);
+    if (element) {
+      const headerOffset = 100;
+      const elementPosition = element.getBoundingClientRect().top;
+      const offsetPosition = elementPosition + window.scrollY - headerOffset;
+
+      window.scrollTo({
+        top: offsetPosition,
+        behavior: 'smooth',
+      });
+    }
+  }
 }

@@ -58,7 +58,7 @@
 
     &:hover {
       background: var(--accent);
-      color: white;
+      color: var(--text-light);
     }
   }
 
@@ -351,11 +351,11 @@
 
 .btn-primary {
   background: var(--accent);
-  color: white;
-  border: none;
+  color: var(--text-light);
+  border: 2px solid var(--accent);
 
   &:hover {
-    background: white;
+    background: rgba(var(--accent-rgb), 0.15);
     color: var(--accent);
   }
 }

@@ -14,7 +14,11 @@
     <nav class="changelog__nav" aria-label="Versionen">
       <span class="changelog__nav-label">Springe zu:</span>
       @for (entry of changelog; track entry.version) {
-        <a [href]="'#v' + entry.version" class="changelog__nav-link">
+        <a 
+          [href]="'#v' + entry.version" 
+          class="changelog__nav-link"
+          (click)="scrollToVersion(entry.version, $event)"
+        >
           v{{ entry.version }}
         </a>
       }
