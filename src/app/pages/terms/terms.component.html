@@ -32,7 +32,11 @@
         <ol class="terms-toc__list">
           @for (section of sections; track section.id; let i = $index) {
             <li>
-              <a [href]="'#' + section.id" class="terms-toc__link">
+              <a 
+                [href]="'#' + section.id" 
+                class="terms-toc__link"
+                (click)="scrollToSection(section.id, $event)"
+              >
                 {{ section.title }}
               </a>
             </li>
