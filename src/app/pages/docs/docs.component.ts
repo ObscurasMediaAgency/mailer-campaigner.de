@@ -1,5 +1,5 @@
-import { ChangeDetectionStrategy, Component, ElementRef, signal, viewChild } from '@angular/core';
-import { RouterLink } from '@angular/router';
+import { ChangeDetectionStrategy, Component, ElementRef, inject, OnInit, signal, viewChild } from '@angular/core';
+import { ActivatedRoute, RouterLink } from '@angular/router';
 
 interface DocSection {
   id: string;
@@ -12,6 +12,7 @@ interface DocArticle {
   description: string;
   icon: string;
   link: string;
+  fragment?: string;
 }
 
 @Component({
@@ -21,9 +22,18 @@ interface DocArticle {
   styleUrl: './docs.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class DocsComponent {
+export class DocsComponent implements OnInit {
+  private readonly route = inject(ActivatedRoute);
   readonly activeSection = signal('quickstart');
   readonly docsContent = viewChild<ElementRef<HTMLElement>>('docsContent');
+
+  ngOnInit(): void {
+    this.route.fragment.subscribe((fragment) => {
+      if (fragment && this.sections.some((s) => s.id === fragment)) {
+        this.activeSection.set(fragment);
+      }
+    });
+  }
 
   readonly sections: DocSection[] = [
     { id: 'quickstart', title: 'Schnellstart', icon: 'fa-rocket' },
@@ -45,19 +55,22 @@ export class DocsComponent {
       title: 'Erste Kampagne',
       description: 'Erstelle deine erste E-Mail-Kampagne',
       icon: 'fa-paper-plane',
-      link: '/docs/first-campaign',
+      link: '/docs',
+      fragment: 'campaigns',
     },
     {
       title: 'SMTP einrichten',
       description: 'Konfiguriere deinen E-Mail-Server',
       icon: 'fa-envelope',
-      link: '/docs/smtp-setup',
+      link: '/docs',
+      fragment: 'smtp',
     },
     {
       title: 'Kontakte importieren',
       description: 'Importiere Kontakte aus CSV oder Excel',
       icon: 'fa-users',
-      link: '/docs/import-contacts',
+      link: '/docs',
+      fragment: 'campaigns',
     },
   ];
 

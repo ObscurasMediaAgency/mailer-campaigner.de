@@ -24,7 +24,7 @@ export class FooterComponent {
     ],
     resources: [
       { label: 'Dokumentation', path: '/docs' },
-      { label: 'Schnellstart', path: '/docs/', fragment: 'quickstart' },
+      { label: 'Schnellstart', path: '/docs', fragment: 'quickstart' },
       { label: 'Installation', path: '/download' },
       { label: 'FAQ', path: '/pricing', fragment: 'faq' },
     ],
