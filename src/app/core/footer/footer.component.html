@@ -40,7 +40,7 @@
         <h4 class="footer__section-title">Ressourcen</h4>
         <nav class="footer__nav" aria-label="Ressourcen-Links">
           @for (link of footerLinks.resources; track link.path) {
-            <a [routerLink]="link.path" class="footer__link">{{ link.label }}</a>
+            <a [routerLink]="link.path" [fragment]="link.fragment" class="footer__link">{{ link.label }}</a>
           }
         </nav>
       </div>
