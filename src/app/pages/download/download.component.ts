@@ -1,157 +1,173 @@
 import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
 import { RouterLink } from '@angular/router';
+import { KeyValuePipe } from '@angular/common';
 
-interface InstallStep {
-  command: string;
-  description: string;
+type PlatformKey = 'linux' | 'windows' | 'macos';
+
+interface PlatformInfo {
+  name: string;
+  icon: string;
+  pythonCommand: string;
+  activateCommand: string;
+  requirements: string[];
 }
 
-interface DownloadOption {
-  platform: string;
+interface InstallerCommand {
+  command: string;
+  description: string;
   icon: string;
-  available: boolean;
-  version: string;
-  requirements: string[];
-  installSteps: InstallStep[];
-  downloadUrl?: string;
-  fileName?: string;
+}
+
+interface Feature {
+  icon: string;
+  title: string;
+  description: string;
 }
 
 @Component({
   selector: 'app-download',
-  imports: [RouterLink],
+  imports: [RouterLink, KeyValuePipe],
   templateUrl: './download.component.html',
   styleUrl: './download.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DownloadComponent {
-  readonly selectedPlatform = signal<'linux' | 'windows' | 'macos'>('linux');
+  readonly version = '1.2.0';
+  readonly downloadUrl = 'https://github.com/obscuras-media-agency/mailer-campaigner/releases/latest';
+  readonly selectedPlatform = signal<PlatformKey>('linux');
+  readonly copiedCommand = signal<string | null>(null);
 
-  readonly downloadOptions: Record<string, DownloadOption> = {
+  readonly platforms: Record<PlatformKey, PlatformInfo> = {
     linux: {
-      platform: 'Linux',
+      name: 'Linux',
       icon: 'fa-brands fa-linux',
-      available: true,
-      version: '1.0.0',
+      pythonCommand: 'python3',
+      activateCommand: './start.sh',
       requirements: [
-        'Python 3.8 oder höher',
+        'Python 3.10 oder höher',
         'pip (Python Package Manager)',
-        'PyQt6 für die GUI',
-        'Internetverbindung für SMTP',
+        '500 MB freier Speicherplatz',
+        'Internetverbindung',
       ],
-      installSteps: [
-        {
-          command: 'python -m venv venv && source venv/bin/activate',
-          description: 'Virtuelle Umgebung erstellen und aktivieren',
-        },
-        {
-          command: 'pip install -r requirements.txt',
-          description: 'Abhängigkeiten installieren',
-        },
-        {
-          command: 'cp .env.example .env && nano .env',
-          description: 'Konfigurationsdatei erstellen und SMTP-Daten eintragen',
-        },
-        {
-          command: 'python main.py',
-          description: 'GUI starten',
-        },
-      ],
-      downloadUrl: 'https://github.com/obscuras-media-agency/mailer-campaigner/releases/latest',
-      fileName: 'mailer-campaigner-1.0.0-linux.tar.gz',
     },
     windows: {
-      platform: 'Windows',
+      name: 'Windows',
       icon: 'fa-brands fa-windows',
-      available: false,
-      version: 'Coming Soon',
+      pythonCommand: 'python',
+      activateCommand: 'start.bat',
       requirements: [
         'Windows 10/11',
-        'Python 3.8 oder höher',
-        'pip (Python Package Manager)',
-      ],
-      installSteps: [
-        {
-          command: 'python -m venv venv',
-          description: 'Virtuelle Umgebung erstellen',
-        },
-        {
-          command: 'venv\\Scripts\\activate',
-          description: 'Virtuelle Umgebung aktivieren',
-        },
-        {
-          command: 'pip install -r requirements.txt',
-          description: 'Abhängigkeiten installieren',
-        },
-        {
-          command: 'python main.py',
-          description: 'GUI starten',
-        },
+        'Python 3.10 oder höher',
+        '500 MB freier Speicherplatz',
+        'Internetverbindung',
       ],
     },
     macos: {
-      platform: 'macOS',
+      name: 'macOS',
       icon: 'fa-brands fa-apple',
-      available: false,
-      version: 'Coming Soon',
+      pythonCommand: 'python3',
+      activateCommand: './start.sh',
       requirements: [
         'macOS 11+ (Big Sur)',
-        'Python 3.8 oder höher',
-        'pip (Python Package Manager)',
-      ],
-      installSteps: [
-        {
-          command: 'python3 -m venv venv && source venv/bin/activate',
-          description: 'Virtuelle Umgebung erstellen und aktivieren',
-        },
-        {
-          command: 'pip install -r requirements.txt',
-          description: 'Abhängigkeiten installieren',
-        },
-        {
-          command: 'cp .env.example .env && nano .env',
-          description: 'Konfigurationsdatei erstellen und SMTP-Daten eintragen',
-        },
-        {
-          command: 'python main.py',
-          description: 'GUI starten',
-        },
+        'Python 3.10 oder höher',
+        '500 MB freier Speicherplatz',
+        'Internetverbindung',
       ],
     },
   };
 
-  readonly cliQuickstart = [
+  readonly installerCommands: InstallerCommand[] = [
     {
-      title: 'Kampagnen anzeigen',
-      command: 'python send_campaign.py --list',
-      description: 'Zeigt alle verfügbaren Kampagnen an',
+      command: 'python install.py',
+      description: 'Vollständige Installation mit Desktop-Integration',
+      icon: 'fa-download',
     },
     {
-      title: 'Vorschau erstellen',
-      command: 'python send_campaign.py meine_kampagne --preview',
-      description: 'Generiert eine HTML-Vorschau der E-Mail',
+      command: 'python install.py --update',
+      description: 'Update mit automatischem Backup',
+      icon: 'fa-arrows-rotate',
     },
     {
-      title: 'Test-Mail senden',
-      command: 'python send_campaign.py meine_kampagne --test deine@email.de',
-      description: 'Sendet eine Test-Mail an dich selbst',
+      command: 'python install.py --repair',
+      description: 'Reparatur-Installation (venv neu erstellen)',
+      icon: 'fa-screwdriver-wrench',
     },
     {
-      title: 'Kampagne starten',
-      command: 'python send_campaign.py meine_kampagne --schedule',
-      description: 'Startet den Versand mit Zeitfenster (Mo-Fr 9-17 Uhr)',
+      command: 'python install.py --uninstall',
+      description: 'Saubere Deinstallation',
+      icon: 'fa-trash',
+    },
+    {
+      command: 'python install.py --check',
+      description: 'Nur Systemvoraussetzungen prüfen',
+      icon: 'fa-clipboard-check',
+    },
+    {
+      command: 'python install.py --dev',
+      description: 'Mit Entwickler-Tools (pytest, black, mypy)',
+      icon: 'fa-code',
     },
   ];
 
-  selectPlatform(platform: 'linux' | 'windows' | 'macos'): void {
+  readonly features: Feature[] = [
+    {
+      icon: 'fa-wand-magic-sparkles',
+      title: 'Ein-Klick-Installation',
+      description: 'Automatische venv-Erstellung, Dependency-Installation und Konfiguration',
+    },
+    {
+      icon: 'fa-desktop',
+      title: 'Desktop-Integration',
+      description: 'Launcher-Skripte und Anwendungsmenü-Einträge für alle Plattformen',
+    },
+    {
+      icon: 'fa-shield-halved',
+      title: 'Sicheres Update',
+      description: 'Automatisches Backup vor Updates, einfache Wiederherstellung',
+    },
+    {
+      icon: 'fa-rotate-left',
+      title: 'Reparatur-Modus',
+      description: 'Probleme? Ein Befehl stellt alles wieder her',
+    },
+  ];
+
+  readonly installSteps = [
+    {
+      number: 1,
+      title: 'Download',
+      description: 'Lade die neueste Version herunter und entpacke das Archiv.',
+      icon: 'fa-download',
+    },
+    {
+      number: 2,
+      title: 'Installer starten',
+      description: 'Führe den Universal-Installer aus.',
+      icon: 'fa-terminal',
+    },
+    {
+      number: 3,
+      title: 'Fertig!',
+      description: 'Starte die Anwendung über das Startmenü oder den Launcher.',
+      icon: 'fa-rocket',
+    },
+  ];
+
+  get currentPlatform(): PlatformInfo {
+    return this.platforms[this.selectedPlatform()];
+  }
+
+  get installCommand(): string {
+    return `${this.currentPlatform.pythonCommand} install.py`;
+  }
+
+  selectPlatform(platform: PlatformKey): void {
     this.selectedPlatform.set(platform);
   }
 
   copyToClipboard(text: string): void {
     navigator.clipboard.writeText(text);
-  }
-
-  get currentPlatform(): DownloadOption {
-    return this.downloadOptions[this.selectedPlatform()];
+    this.copiedCommand.set(text);
+    setTimeout(() => this.copiedCommand.set(null), 2000);
   }
 }

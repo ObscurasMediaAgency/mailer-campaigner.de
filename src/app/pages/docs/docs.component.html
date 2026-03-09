@@ -65,43 +65,70 @@
                 Schnellstart
               </h2>
               <p class="docs-article__intro">
-                Mit diesen einfachen Schritten startest du in wenigen Minuten deine erste Kampagne.
+                Mit dem Universal Installer startest du in wenigen Minuten deine erste Kampagne.
               </p>
 
-              <h3>1. Installation</h3>
+              <h3>1. Download & Installation</h3>
+              <p>Lade die neueste Version herunter und führe den Installer aus:</p>
               <div class="docs-code">
-                <pre><code># Virtuelle Umgebung erstellen
-python -m venv venv
-source venv/bin/activate
+                <pre><code># Universal Installer ausführen (Linux/macOS)
+python3 install.py
 
-# Abhängigkeiten installieren
-pip install -r requirements.txt
-
-# Konfiguration
-cp .env.example .env
-nano .env  # SMTP-Daten eintragen</code></pre>
+# Unter Windows
+python install.py</code></pre>
               </div>
+              <p>Der Installer erledigt automatisch:</p>
+              <ul>
+                <li>Virtual Environment erstellen</li>
+                <li>Alle Abhängigkeiten installieren</li>
+                <li>Launcher-Skripte generieren</li>
+                <li>Desktop-Eintrag erstellen</li>
+              </ul>
 
               <h3>2. SMTP-Konfiguration</h3>
-              <p>Trage deine SMTP-Zugangsdaten in die <code>.env</code>-Datei ein:</p>
+              <p>Trage deine SMTP-Zugangsdaten in die Konfiguration ein (<code>config/sender.yaml</code>):</p>
               <div class="docs-code">
-                <pre><code>export SMTP_HOST="smtp.deinserver.de"
-export SMTP_PORT="465"
-export SMTP_USER="mail&#64;deine-domain.de"
-export SMTP_PASS="dein-sicheres-passwort"</code></pre>
+                <pre><code># config/sender.yaml
+sender:
+  name: "Dein Name"
+  email: "mail&#64;deine-domain.de"
+  company: "Deine Firma"
+
+smtp:
+  host: "smtp.deinserver.de"
+  port: 465
+  user: "mail&#64;deine-domain.de"
+  password: "dein-sicheres-passwort"</code></pre>
               </div>
 
-              <h3>3. Erste Kampagne</h3>
-              <p>Teste deine Konfiguration mit einem Probelauf:</p>
+              <h3>3. Anwendung starten</h3>
+              <p>Starte die Anwendung über den generierten Launcher:</p>
               <div class="docs-code">
-                <pre><code># Kampagnen anzeigen
-python send_campaign.py --list
+                <pre><code># Linux/macOS
+./start.sh
 
-# Vorschau erstellen
-python send_campaign.py meine_kampagne --preview
+# Windows
+start.bat
 
-# Test-Mail senden
-python send_campaign.py meine_kampagne --test deine&#64;email.de</code></pre>
+# Oder über das Anwendungsmenü/Desktop-Verknüpfung</code></pre>
+              </div>
+
+              <h3>Weitere Installer-Optionen</h3>
+              <div class="docs-code">
+                <pre><code># Update mit automatischem Backup
+python install.py --update
+
+# Reparatur-Installation
+python install.py --repair
+
+# Systemprüfung
+python install.py --check
+
+# Entwickler-Modus (pytest, black, mypy)
+python install.py --dev
+
+# Deinstallation
+python install.py --uninstall</code></pre>
               </div>
             </article>
           }
@@ -236,7 +263,12 @@ Musterfirma GmbH,https://musterfirma.de,kontakt&#64;musterfirma.de,"Problem-Besc
 
               <h3>GUI starten</h3>
               <div class="docs-code">
-                <pre><code>python main.py
+                <pre><code># Über Launcher (empfohlen)
+./start.sh          # Linux/macOS
+start.bat           # Windows
+
+# Oder manuell
+python main.py
 
 # Mit Debug-Modus
 python main.py --debug</code></pre>
