@@ -18,7 +18,12 @@
     <h2 class="quick-guides__title">Schnellstart-Anleitungen</h2>
     <div class="quick-guides__grid">
       @for (guide of quickGuides; track guide.title) {
-        <a [routerLink]="guide.link" [fragment]="guide.fragment" class="quick-guides__card card">
+        <a 
+          [routerLink]="guide.link" 
+          [fragment]="guide.fragment" 
+          class="quick-guides__card card"
+          (click)="navigateToGuide(guide, $event)"
+        >
           <div class="quick-guides__icon">
             <i class="fa-solid {{ guide.icon }}" aria-hidden="true"></i>
           </div>

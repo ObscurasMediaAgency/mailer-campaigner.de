@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, ElementRef, inject, OnInit, signal, viewChild } from '@angular/core';
-import { ActivatedRoute, RouterLink } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 
 interface DocSection {
   id: string;
@@ -24,6 +24,7 @@ interface DocArticle {
 })
 export class DocsComponent implements OnInit {
   private readonly route = inject(ActivatedRoute);
+  private readonly router = inject(Router);
   readonly activeSection = signal('quickstart');
   readonly docsContent = viewChild<ElementRef<HTMLElement>>('docsContent');
 
@@ -135,7 +136,21 @@ export class DocsComponent implements OnInit {
     this.activeSection.set(sectionId);
     const contentEl = this.docsContent()?.nativeElement;
     if (contentEl) {
-      contentEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      const headerOffset = 100;
+      const elementPosition = contentEl.getBoundingClientRect().top;
+      const offsetPosition = elementPosition + window.scrollY - headerOffset;
+      window.scrollTo({ top: offsetPosition, behavior: 'smooth' });
+    }
+  }
+
+  navigateToGuide(guide: DocArticle, event: Event): void {
+    // If it's an internal docs link with a fragment, handle it manually
+    if (guide.link === '/docs' && guide.fragment) {
+      event.preventDefault();
+      this.setActiveSection(guide.fragment);
+    } else if (guide.link !== '/docs') {
+      // External link - let routerLink handle it
+      // No need to prevent default
     }
   }
 
