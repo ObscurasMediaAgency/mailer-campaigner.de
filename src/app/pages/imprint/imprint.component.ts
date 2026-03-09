@@ -19,8 +19,8 @@ export class ImprintComponent {
   };
 
   readonly taxInfo = {
-    vatId: 'DE123456789',
-    taxNumber: '123/456/78901',
+    vatId: 'DE460608508',
+    taxNumber: '118/223/02043',
   };
 
   readonly responsibleContent = {
