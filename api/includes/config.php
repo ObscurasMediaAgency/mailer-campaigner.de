@@ -2,48 +2,89 @@
 /**
  * Mailer Campaigner - API Konfiguration
  * 
- * WICHTIG: Diese Datei enthält sensible Daten!
- * - Niemals in Git committen
- * - In Produktion: chmod 600
+ * Lädt Umgebungsvariablen aus .env und definiert Konstanten.
+ * Sensible Daten werden NICHT im Code gespeichert!
  * 
  * @package MailerCampaigner
  * @version 1.0.0
  */
 
 // ═══════════════════════════════════════════════════════════════════════════
+// DOTENV LADEN
+// ═══════════════════════════════════════════════════════════════════════════
+use Symfony\Component\Dotenv\Dotenv;
+
+$vendorPath = __DIR__ . '/../vendor/autoload.php';
+if (file_exists($vendorPath)) {
+    require_once $vendorPath;
+}
+
+// .env Datei laden
+$envPath = __DIR__ . '/../.env';
+if (file_exists($envPath)) {
+    $dotenv = new Dotenv();
+    $dotenv->load($envPath);
+} else {
+    // Fallback: Prüfen ob Umgebungsvariablen bereits gesetzt sind (z.B. via Server)
+    if (empty($_ENV['APP_URL']) && empty(getenv('APP_URL'))) {
+        error_log('[CONFIG] WARNUNG: .env Datei nicht gefunden: ' . $envPath);
+    }
+}
+
+/**
+ * Hilfsfunktion zum Laden von Umgebungsvariablen mit Fallback
+ */
+function env(string $key, mixed $default = null): mixed
+{
+    $value = $_ENV[$key] ?? getenv($key);
+    
+    if ($value === false || $value === '') {
+        return $default;
+    }
+    
+    // Boolean-Werte umwandeln
+    return match (strtolower((string) $value)) {
+        'true', '(true)' => true,
+        'false', '(false)' => false,
+        'null', '(null)' => null,
+        default => $value,
+    };
+}
+
+// ═══════════════════════════════════════════════════════════════════════════
 // UMGEBUNG
 // ═══════════════════════════════════════════════════════════════════════════
-define('APP_ENV', 'production');  // 'development' oder 'production'
-define('APP_DEBUG', false);
-define('APP_URL', 'https://mailer-campaigner.de');
+define('APP_ENV', env('APP_ENV', 'production'));
+define('APP_DEBUG', env('APP_DEBUG', false));
+define('APP_URL', env('APP_URL', 'https://mailer-campaigner.de'));
 define('API_URL', APP_URL . '/api');
 
 // ═══════════════════════════════════════════════════════════════════════════
 // SMTP KONFIGURATION
 // ═══════════════════════════════════════════════════════════════════════════
-define('SMTP_HOST', 'mail.dein-server.de');
-define('SMTP_PORT', 465);
-define('SMTP_USERNAME', 'noreply@mailer-campaigner.de');
-define('SMTP_PASSWORD', 'DEIN_SMTP_PASSWORT');
-define('SMTP_ENCRYPTION', 'ssl');  // 'ssl' oder 'tls'
+define('SMTP_HOST', env('SMTP_HOST', 'localhost'));
+define('SMTP_PORT', (int) env('SMTP_PORT', 465));
+define('SMTP_USERNAME', env('SMTP_USERNAME', ''));
+define('SMTP_PASSWORD', env('SMTP_PASSWORD', ''));
+define('SMTP_ENCRYPTION', env('SMTP_ENCRYPTION', 'ssl'));
 
-define('EMAIL_FROM', 'noreply@mailer-campaigner.de');
-define('EMAIL_FROM_NAME', 'Mailer Campaigner');
+define('EMAIL_FROM', env('EMAIL_FROM', 'noreply@mailer-campaigner.de'));
+define('EMAIL_FROM_NAME', env('EMAIL_FROM_NAME', 'Mailer Campaigner'));
 
 // ═══════════════════════════════════════════════════════════════════════════
 // STRIPE KONFIGURATION
 // ═══════════════════════════════════════════════════════════════════════════
-define('STRIPE_SECRET_KEY', 'sk_test_DEIN_SECRET_KEY');
-define('STRIPE_PUBLISHABLE_KEY', 'pk_test_DEIN_PUBLISHABLE_KEY');
-define('STRIPE_WEBHOOK_SECRET', 'whsec_DEIN_WEBHOOK_SECRET');
-define('STRIPE_PRICE_ID', '');  // Optional: Feste Price-ID aus Stripe Dashboard
+define('STRIPE_SECRET_KEY', env('STRIPE_SECRET_KEY', ''));
+define('STRIPE_PUBLISHABLE_KEY', env('STRIPE_PUBLISHABLE_KEY', ''));
+define('STRIPE_WEBHOOK_SECRET', env('STRIPE_WEBHOOK_SECRET', ''));
+define('STRIPE_PRICE_ID', env('STRIPE_PRICE_ID', ''));
 
 // ═══════════════════════════════════════════════════════════════════════════
 // PRODUKT KONFIGURATION
 // ═══════════════════════════════════════════════════════════════════════════
-define('PRODUCT_NAME', 'Mailer Campaigner Pro');
-define('PRODUCT_PRICE_EUR', 129.00);
-define('LICENSE_VALIDITY_DAYS', 365);
+define('PRODUCT_NAME', env('PRODUCT_NAME', 'Mailer Campaigner Pro'));
+define('PRODUCT_PRICE_EUR', (float) env('PRODUCT_PRICE_EUR', 129.00));
+define('LICENSE_VALIDITY_DAYS', (int) env('LICENSE_VALIDITY_DAYS', 365));
 
 // ═══════════════════════════════════════════════════════════════════════════
 // NEWSLETTER KONFIGURATION
@@ -69,14 +110,13 @@ define('LOG_MAX_SIZE', 10 * 1024 * 1024);  // 10 MB
 // ═══════════════════════════════════════════════════════════════════════════
 // SICHERHEIT
 // ═══════════════════════════════════════════════════════════════════════════
-define('RATE_LIMIT_REQUESTS', 10);
-define('RATE_LIMIT_WINDOW', 60);  // 60 Sekunden
+define('RATE_LIMIT_REQUESTS', (int) env('RATE_LIMIT_REQUESTS', 10));
+define('RATE_LIMIT_WINDOW', (int) env('RATE_LIMIT_WINDOW', 60));
 define('RATE_LIMIT_STORAGE', __DIR__ . '/../data/rate_limits.json');
 
-define('ALLOWED_ORIGINS', [
-    'https://mailer-campaigner.de',
-    'https://www.mailer-campaigner.de',
-]);
+// Allowed Origins aus Komma-separiertem String parsen
+$originsString = env('ALLOWED_ORIGINS', 'https://mailer-campaigner.de,https://www.mailer-campaigner.de');
+define('ALLOWED_ORIGINS', array_map('trim', explode(',', $originsString)));
 
 // In Development auch localhost erlauben
 if (APP_ENV === 'development') {

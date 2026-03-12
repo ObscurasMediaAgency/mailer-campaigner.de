@@ -1,0 +1,28 @@
+# Umgebungsvariablen (NIEMALS committen!)
+.env
+.env.local
+.env.*.local
+
+# Vendor Dependencies
+/vendor/
+
+# Daten-Verzeichnis
+/data/*.json
+/data/*.db
+/data/*.sqlite
+
+# Logs
+/logs/*.log
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Composer
+composer.lock
