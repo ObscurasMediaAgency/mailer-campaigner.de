@@ -61,6 +61,18 @@ export const routes: Routes = [
         title: 'Changelog - Mailer Campaigner',
       },
       {
+        path: 'payment/success',
+        loadComponent: () =>
+          import('./pages/payment/success/success.component').then((m) => m.PaymentSuccessComponent),
+        title: 'Zahlung erfolgreich - Mailer Campaigner',
+      },
+      {
+        path: 'payment/cancel',
+        loadComponent: () =>
+          import('./pages/payment/cancel/cancel.component').then((m) => m.PaymentCancelComponent),
+        title: 'Zahlung abgebrochen - Mailer Campaigner',
+      },
+      {
         path: '**',
         redirectTo: '',
       },

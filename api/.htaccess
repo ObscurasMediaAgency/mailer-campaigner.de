@@ -1,0 +1,131 @@
+# ═══════════════════════════════════════════════════════════════════════════════
+# Mailer Campaigner - API Security Configuration
+# ═══════════════════════════════════════════════════════════════════════════════
+# 
+# Diese .htaccess schützt die API-Dateien und konfiguriert wichtige
+# Sicherheitseinstellungen für den Produktionsbetrieb.
+#
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# PHP EINSTELLUNGEN
+# ═══════════════════════════════════════════════════════════════════════════════
+
+# Fehler nicht anzeigen (nur loggen)
+php_flag display_errors Off
+php_flag log_errors On
+php_value error_log logs/php_errors.log
+
+# Upload-Limits
+php_value upload_max_filesize 10M
+php_value post_max_size 10M
+
+# Timeout
+php_value max_execution_time 60
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# VERZEICHNIS-SICHERHEIT
+# ═══════════════════════════════════════════════════════════════════════════════
+
+# Verzeichnis-Listing deaktivieren
+Options -Indexes
+
+# Symbolic Links folgen (für manche Server nötig)
+Options +FollowSymLinks
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# ZUGRIFFSBESCHRÄNKUNGEN
+# ═══════════════════════════════════════════════════════════════════════════════
+
+# Konfigurationsdateien schützen
+<FilesMatch "^(config\.php|\.htaccess|\.env|composer\.json|composer\.lock)$">
+    <IfModule mod_authz_core.c>
+        Require all denied
+    </IfModule>
+    <IfModule !mod_authz_core.c>
+        Order allow,deny
+        Deny from all
+    </IfModule>
+</FilesMatch>
+
+# Backup-Dateien schützen
+<FilesMatch "\.(bak|sql|log|ini|sh)$">
+    <IfModule mod_authz_core.c>
+        Require all denied
+    </IfModule>
+    <IfModule !mod_authz_core.c>
+        Order allow,deny
+        Deny from all
+    </IfModule>
+</FilesMatch>
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# REWRITE REGELN
+# ═══════════════════════════════════════════════════════════════════════════════
+
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    
+    # Basis-Pfad
+    RewriteBase /api/
+    
+    # Zugriff auf sensible Ordner verbieten
+    RewriteRule ^includes/ - [F,L]
+    RewriteRule ^data/ - [F,L]
+    RewriteRule ^logs/ - [F,L]
+    RewriteRule ^vendor/ - [F,L]
+    RewriteRule ^templates/ - [F,L]
+    
+    # Zugriff auf versteckte Dateien verbieten
+    RewriteRule (^|/)\.(?!well-known) - [F,L]
+</IfModule>
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# CORS HEADERS
+# ═══════════════════════════════════════════════════════════════════════════════
+
+<IfModule mod_headers.c>
+    # Standard CORS Headers (werden von PHP überschrieben wenn nötig)
+    Header always set Access-Control-Allow-Origin "*"
+    Header always set Access-Control-Allow-Methods "GET, POST, OPTIONS"
+    Header always set Access-Control-Allow-Headers "Content-Type, Authorization, X-API-Key"
+    Header always set Access-Control-Max-Age "86400"
+    
+    # Sicherheits-Headers
+    Header always set X-Content-Type-Options "nosniff"
+    Header always set X-Frame-Options "DENY"
+    Header always set X-XSS-Protection "1; mode=block"
+    Header always set Referrer-Policy "strict-origin-when-cross-origin"
+    
+    # Cache-Control für API-Responses
+    Header always set Cache-Control "no-store, no-cache, must-revalidate, max-age=0"
+    Header always set Pragma "no-cache"
+</IfModule>
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# MIME TYPES
+# ═══════════════════════════════════════════════════════════════════════════════
+
+<IfModule mod_mime.c>
+    AddType application/json .json
+    AddCharset UTF-8 .json .php
+</IfModule>
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# KOMPRESSION
+# ═══════════════════════════════════════════════════════════════════════════════
+
+<IfModule mod_deflate.c>
+    AddOutputFilterByType DEFLATE application/json
+    AddOutputFilterByType DEFLATE text/html
+    AddOutputFilterByType DEFLATE text/plain
+</IfModule>
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# RATE LIMITING (falls mod_ratelimit verfügbar)
+# ═══════════════════════════════════════════════════════════════════════════════
+
+<IfModule mod_ratelimit.c>
+    # 100 KB/s pro Verbindung
+    SetOutputFilter RATE_LIMIT
+    SetEnv rate-limit 100
+</IfModule>
