@@ -22,10 +22,7 @@
     "autoload": {
         "psr-4": {
             "MailerCampaigner\\": "includes/"
-        },
-        "files": [
-            "includes/helpers.php"
-        ]
+        }
     },
     "config": {
         "vendor-dir": "vendor",

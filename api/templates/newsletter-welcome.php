@@ -28,9 +28,10 @@ function getNewsletterWelcomeEmail(string $email, string $unsubscribeUrl): strin
         </xml>
     </noscript>
     <![endif]-->
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
-    </style>
+    <!--
+    Fonts: Inter wird über den font-family Stack als Fallback geladen.
+    @import in E-Mails wird von Spam-Filtern blockiert.
+    -->
 </head>
 <body style="margin: 0; padding: 0; background-color: #0a0a0f; font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;">
     <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background-color: #0a0a0f;">

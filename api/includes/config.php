@@ -10,14 +10,29 @@
  */
 
 // ═══════════════════════════════════════════════════════════════════════════
+// COMPOSER AUTOLOADER
+// ═══════════════════════════════════════════════════════════════════════════
+$vendorPath = __DIR__ . '/../vendor/autoload.php';
+
+if (!file_exists($vendorPath)) {
+    http_response_code(500);
+    header('Content-Type: application/json');
+    $errorMsg = 'Composer dependencies not installed. Run: cd api && composer install';
+    error_log('[CONFIG] FATAL: ' . $errorMsg);
+    echo json_encode([
+        'success' => false,
+        'error' => $errorMsg,
+        'hint' => 'SSH zum Server verbinden und im api/ Ordner "composer install" ausführen'
+    ]);
+    exit(1);
+}
+
+require_once $vendorPath;
+
+// ═══════════════════════════════════════════════════════════════════════════
 // DOTENV LADEN
 // ═══════════════════════════════════════════════════════════════════════════
 use Symfony\Component\Dotenv\Dotenv;
-
-$vendorPath = __DIR__ . '/../vendor/autoload.php';
-if (file_exists($vendorPath)) {
-    require_once $vendorPath;
-}
 
 // .env Datei laden
 $envPath = __DIR__ . '/../.env';

@@ -12,8 +12,8 @@
  * @version 1.0.0
  */
 
+// Autoloader und Konfiguration werden über helpers.php geladen
 require_once __DIR__ . '/includes/helpers.php';
-require_once __DIR__ . '/includes/PHPMailer/vendor/autoload.php';
 require_once __DIR__ . '/templates/newsletter-double-optin.php';
 require_once __DIR__ . '/templates/newsletter-welcome.php';
 require_once __DIR__ . '/templates/newsletter-unsubscribe.php';
@@ -145,11 +145,11 @@ function sendMail(string $to, string $subject, string $htmlBody, string $textBod
             ]
         ];
         
-        // Debug-Mode für Entwicklung
+        // Debug-Mode: SMTP-Kommunikation loggen
         if (APP_DEBUG && APP_ENV === 'development') {
-            $mail->SMTPDebug = SMTP::DEBUG_CONNECTION;
+            $mail->SMTPDebug = SMTP::DEBUG_SERVER;
             $mail->Debugoutput = function($str, $level) {
-                logNewsletter(LOG_LEVEL_DEBUG, "SMTP: $str", ['level' => $level]);
+                logNewsletter(LOG_LEVEL_DEBUG, "SMTP: " . trim($str), ['level' => $level]);
             };
         }
         
@@ -165,7 +165,7 @@ function sendMail(string $to, string $subject, string $htmlBody, string $textBod
         
         // List-Unsubscribe Header für bessere Deliverability
         $mail->addCustomHeader('List-Unsubscribe', '<' . API_URL . '/newsletter.php?action=unsubscribe>');
-        $mail->addCustomHeader('X-Mailer', 'MailerCampaigner/1.0');
+        $mail->XMailer = 'MailerCampaigner/1.0';
         
         $mail->send();
         

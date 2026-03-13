@@ -114,9 +114,10 @@ class EmailService {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dein Lizenzschlüssel</title>
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500&display=swap');
-    </style>
+    <!--
+    Fonts: Inter/JetBrains Mono werden über den font-family Stack als Fallback geladen.
+    @import in E-Mails wird von Spam-Filtern blockiert.
+    -->
 </head>
 <body style="margin: 0; padding: 0; background-color: #0a0a0f; font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;">
     <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background-color: #0a0a0f;">

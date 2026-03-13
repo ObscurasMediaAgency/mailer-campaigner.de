@@ -7,30 +7,22 @@
 #
 
 # ═══════════════════════════════════════════════════════════════════════════════
-# PHP EINSTELLUNGEN
+# PHP EINSTELLUNGEN (nur für mod_php, nicht bei PHP-FPM)
+# Bei PHP-FPM werden diese Einstellungen über .user.ini gesteuert
 # ═══════════════════════════════════════════════════════════════════════════════
 
-# Fehler nicht anzeigen (nur loggen)
-php_flag display_errors Off
-php_flag log_errors On
-php_value error_log logs/php_errors.log
-
-# Upload-Limits
-php_value upload_max_filesize 10M
-php_value post_max_size 10M
-
-# Timeout
-php_value max_execution_time 60
+<IfModule mod_php.c>
+    php_flag display_errors Off
+    php_flag log_errors On
+    php_value error_log logs/php_errors.log
+    php_value upload_max_filesize 10M
+    php_value post_max_size 10M
+    php_value max_execution_time 60
+</IfModule>
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # VERZEICHNIS-SICHERHEIT
 # ═══════════════════════════════════════════════════════════════════════════════
-
-# Verzeichnis-Listing deaktivieren
-Options -Indexes
-
-# Symbolic Links folgen (für manche Server nötig)
-Options +FollowSymLinks
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # ZUGRIFFSBESCHRÄNKUNGEN
