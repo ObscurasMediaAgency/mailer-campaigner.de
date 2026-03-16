@@ -30,6 +30,39 @@ export class ChangelogComponent {
 
   readonly changelog: ChangelogEntry[] = [
     {
+      version: '1.3.1',
+      date: '16. März 2026',
+      type: 'patch',
+      highlights: [
+        'Neue Basis-Templates-Galerie mit Click-to-select',
+        'Newsletter-Import mit automatischer Format-Erkennung',
+      ],
+      changes: [
+        {
+          category: 'added',
+          items: [
+            'Basis-Templates-Galerie: Horizontale Kartenansicht mit allen verfügbaren Templates',
+            'Click-to-select für schnelle Template-Auswahl in der Galerie',
+            'Anzeige integrierter und custom Templates in der Galerie',
+            'Newsletter-Import-Dialog: Import von HTML-Dateien oder direkter Code-Einfügung',
+            'Automatische Format-Erkennung (Mailchimp, Sendinblue, HubSpot, CleverReach)',
+            'Platzhalter-Konvertierung mit Vorschau im Import-Dialog',
+            'Optionale Plaintext-Generierung beim Newsletter-Import',
+            'Neuer "📥 Newsletter importieren"-Button im Header',
+            'Erweiterte Kategorie-Filter inkl. "Importiert"',
+            'Template Engine: list_templates() – Listet alle verfügbaren Templates',
+            'Template Engine: import_newsletter() – Importiert externe Newsletter mit vollständigem Result-Objekt',
+          ],
+        },
+        {
+          category: 'changed',
+          items: [
+            'ImportResult enthält jetzt html_content, source_format und converted_placeholders als Dict',
+          ],
+        },
+      ],
+    },
+    {
       version: '1.2.0',
       date: '02. März 2026',
       type: 'minor',
