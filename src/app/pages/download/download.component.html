@@ -17,8 +17,7 @@
         <a 
           [href]="downloadUrl" 
           class="btn btn-primary btn-lg"
-          target="_blank"
-          rel="noopener noreferrer"
+          download
         >
           <i class="fa-solid fa-download" aria-hidden="true"></i>
           Download v{{ version }}
@@ -27,6 +26,93 @@
           <i class="fa-solid fa-book" aria-hidden="true"></i>
           Dokumentation
         </a>
+      </div>
+      <div class="download-hero__meta">
+        <span class="download-hero__meta-item">
+          <i class="fa-solid fa-file-zipper" aria-hidden="true"></i>
+          {{ fileSize }}
+        </span>
+        <span class="download-hero__meta-item">
+          <i class="fa-solid fa-calendar" aria-hidden="true"></i>
+          {{ releaseDate }}
+        </span>
+        <span class="download-hero__meta-item">
+          <i class="fa-solid fa-shield-halved" aria-hidden="true"></i>
+          SHA256 verifiziert
+        </span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Checksum/Verification Section -->
+<section class="verification section">
+  <div class="container">
+    <div class="verification__card card">
+      <div class="verification__header">
+        <i class="fa-solid fa-shield-check" aria-hidden="true"></i>
+        <div>
+          <h3>Download verifizieren</h3>
+          <p>Überprüfe die Integrität deines Downloads mit der SHA256-Checksumme</p>
+        </div>
+      </div>
+      <div class="verification__content">
+        <div class="verification__checksum">
+          <label>SHA256 Checksum</label>
+          <div class="verification__checksum-value">
+            <code>{{ sha256 }}</code>
+            <button 
+              type="button" 
+              class="verification__copy"
+              aria-label="Checksum kopieren"
+              (click)="copyToClipboard(sha256)"
+            >
+              @if (copiedCommand() === sha256) {
+                <i class="fa-solid fa-check" aria-hidden="true"></i>
+              } @else {
+                <i class="fa-solid fa-copy" aria-hidden="true"></i>
+              }
+            </button>
+          </div>
+        </div>
+        <div class="verification__commands">
+          <div class="verification__command">
+            <span class="verification__command-label">Linux/macOS</span>
+            <div class="verification__command-code">
+              <code>sha256sum {{ filename }}</code>
+              <button 
+                type="button" 
+                class="verification__copy"
+                aria-label="Befehl kopieren"
+                (click)="copyToClipboard('sha256sum ' + filename)"
+              >
+                @if (copiedCommand() === 'sha256sum ' + filename) {
+                  <i class="fa-solid fa-check" aria-hidden="true"></i>
+                } @else {
+                  <i class="fa-solid fa-copy" aria-hidden="true"></i>
+                }
+              </button>
+            </div>
+          </div>
+          <div class="verification__command">
+            <span class="verification__command-label">Windows (PowerShell)</span>
+            <div class="verification__command-code">
+              <code>Get-FileHash {{ filename }} -Algorithm SHA256</code>
+              <button 
+                type="button" 
+                class="verification__copy"
+                aria-label="Befehl kopieren"
+                (click)="copyToClipboard('Get-FileHash ' + filename + ' -Algorithm SHA256')"
+              >
+                @if (copiedCommand() === 'Get-FileHash ' + filename + ' -Algorithm SHA256') {
+                  <i class="fa-solid fa-check" aria-hidden="true"></i>
+                } @else {
+                  <i class="fa-solid fa-copy" aria-hidden="true"></i>
+                }
+              </button>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>

@@ -32,8 +32,13 @@ interface Feature {
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DownloadComponent {
-  readonly version = '1.2.0';
-  readonly downloadUrl = 'https://github.com/obscuras-media-agency/mailer-campaigner/releases/latest';
+  readonly version = '1.3.1';
+  readonly releaseDate = '2026-03-17';
+  readonly downloadUrl = '/api/download.php';
+  readonly checksumUrl = '/api/download.php?checksum=1';
+  readonly sha256 = '1ca9ce629e185b10959105afba18f9eae6dd098701685196ba82f43a1c918ff2';
+  readonly filename = 'obscuras_mailer_campaigner-v1.3.1.zip';
+  readonly fileSize = '1.6 MB';
   readonly selectedPlatform = signal<PlatformKey>('linux');
   readonly copiedCommand = signal<string | null>(null);
 
