@@ -36,9 +36,9 @@ export class FooterComponent {
   };
 
   readonly socialLinks = [
-    { icon: 'fa-github', url: 'https://github.com/obscuras-media-agency', label: 'GitHub' },
+    { icon: 'fa-github', url: 'https://github.com/ObscurasMediaAgency', label: 'GitHub' },
     { icon : 'fa-telegram', url: 'https://t.me/obscuras_media_agency/8', label: 'Telegram' },
-    { icon: 'fa-discord', url: 'https://discord.gg/obscuras-media-agency', label: 'Discord' },
+    // { icon: 'fa-discord', url: 'https://discord.gg/ObscurasMediaAgency', label: 'Discord' },
   ];
 
   updateEmail(event: Event): void {
