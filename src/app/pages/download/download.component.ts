@@ -36,7 +36,7 @@ export class DownloadComponent {
   readonly releaseDate = '2026-03-17';
   readonly downloadUrl = '/api/download.php';
   readonly checksumUrl = '/api/download.php?checksum=1';
-  readonly sha256 = '49adcbfc4914812d29ac93d34afa0f99816de1f900b3908bd8340fc64ec179fb';
+  readonly sha256 = 'b06f2563f5dd495611657d47e7aded85fda096d9314123735f56cce722cc6515';
   readonly filename = 'obscuras_mailer_campaigner-v1.3.1.zip';
   readonly fileSize = '1.6 MB';
   readonly selectedPlatform = signal<PlatformKey>('linux');
