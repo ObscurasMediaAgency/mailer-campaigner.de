@@ -264,8 +264,8 @@ class EmailService {
                                         </p>
                                         <p style="margin: 0; color: #3f3f46; font-size: 12px;">
                                             © {$year} Mailer Campaigner · 
-                                            <a href="https://mailer-campaigner.de/privacy" style="color: #3f3f46;">Datenschutz</a> · 
-                                            <a href="https://mailer-campaigner.de/imprint" style="color: #3f3f46;">Impressum</a>
+                                            <a href="https://mailer-campaigner.de/datenschutz" style="color: #3f3f46;">Datenschutz</a> · 
+                                            <a href="https://mailer-campaigner.de/impressum" style="color: #3f3f46;">Impressum</a>
                                         </p>
                                     </td>
                                 </tr>
